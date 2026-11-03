@@ -1,0 +1,13 @@
+const Input = ({ label, error, id, ...props }) => {
+  const inputId = id || props.name;
+
+  return (
+    <div className="form__group">
+      <label htmlFor={inputId}>{label}</label>
+      <input id={inputId} {...props} />
+      {error && <span className="mensaje-error">{error}</span>}
+    </div>
+  );
+};
+
+export default Input;
