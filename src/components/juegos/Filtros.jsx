@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Input from "./common/Input";
-import Select from "./common/Select";
-import Boton from "./common/Boton";
+import Input from "../common/Input";
+import Select from "../common/Select";
+import Boton from "../common/Boton";
 
 const Filtros = ({ categorias, aplicarFiltros }) => {
   const [nombre, setNombre] = useState("");

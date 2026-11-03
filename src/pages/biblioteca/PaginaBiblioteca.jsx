@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import api from '../api/api';
-import ListaBiblioteca from './ListaBiblioteca';
-import { TOKEN } from '../config';
+import api from '../../api/api';
+import ListaBiblioteca from '../../components/biblioteca/ListaBiblioteca';
+import { TOKEN } from '../../config';
 
 const PaginaBiblioteca = () => {
 

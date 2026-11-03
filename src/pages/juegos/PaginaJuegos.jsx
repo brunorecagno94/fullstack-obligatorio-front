@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import api from '../../api/api';
-import ListaJuegosUsuario from '../ListaJuegosUsuario';
-import Paginador from '../common/Paginador';
-import Filtros from '../Filtros';
-
-// PROVISORIO: hasta que exista el login, el token va a mano
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZWEzNjI0NzdkZTg1NWViNjE4YzA4MiIsInJvbCI6InVzdWFyaW8iLCJpYXQiOjE3OTM3MzQxODAsImV4cCI6MTc5MzczNzc4MH0.yxWxUhi4ujU4Ro8xUdq_vsnIF70syDCpPhT4vigNzOM";
+import ListaJuegosUsuario from '../../components/juegos/ListaJuegosUsuario';
+import Paginador from '../../components/common/Paginador';
+import Filtros from '../../components/juegos/Filtros';
+import { TOKEN } from '../../config';
 const PaginaJuegos = () => {
   const [juegos, setJuegos] = useState([]);
   const [pagina, setPagina] = useState(1);

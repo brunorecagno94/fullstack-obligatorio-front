@@ -1,4 +1,4 @@
-import Tag from "./common/Tag"
+import Tag from "../common/Tag"
 
 const Juego = ({ nombreJuego, precioJuego, monedaJuego, categorias }) => {
   const categoriasValidas = categorias.filter(categoria => categoria !== null);
