@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import ListaBiblioteca from './ListaBiblioteca';
-import { URL_API, TOKEN } from '../config';
+import { TOKEN } from '../config';
 
 const PaginaBiblioteca = () => {
 
@@ -9,7 +9,7 @@ const PaginaBiblioteca = () => {
   const [cargado, setCargado] = useState(false);
 
   useEffect(() => {
-    axios.get(`${URL_API}/usuarios/compras`, {
+    api.get('/usuarios/compras', {
       headers: {
         'Authorization': `Bearer ${TOKEN}`
       }

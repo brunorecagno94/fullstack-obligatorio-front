@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../api/api';
 import ListaJuegosUsuario from '../ListaJuegosUsuario';
 import Paginador from '../common/Paginador';
 import Filtros from '../Filtros';
 
-// PROVISORIO: hasta que exista el login, la URL y el token van a mano
-const URL_API = "http://localhost:3000/v1";
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZGQzOTA4NDIwM2E1M2YyNzk0OTA4NSIsInJvbCI6InVzdWFyaW8iLCJpYXQiOjE3OTI4ODI5NTIsImV4cCI6MTc5Mjg4NjU1Mn0.n6MRGm17IzLaW1zmo2-PEvepZLCcVIf3v8ftjDRBQxk";
-
+// PROVISORIO: hasta que exista el login, el token va a mano
+const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZWEzNjI0NzdkZTg1NWViNjE4YzA4MiIsInJvbCI6InVzdWFyaW8iLCJpYXQiOjE3OTM3MzQxODAsImV4cCI6MTc5MzczNzc4MH0.yxWxUhi4ujU4Ro8xUdq_vsnIF70syDCpPhT4vigNzOM";
 const PaginaJuegos = () => {
   const [juegos, setJuegos] = useState([]);
   const [pagina, setPagina] = useState(1);
@@ -17,7 +15,7 @@ const PaginaJuegos = () => {
   const [cargado, setCargado] = useState(false);
 
   useEffect(() => {
-    axios.get(`${URL_API}/categorias`, {
+    api.get('/categorias', {
       headers: {
         'Authorization': `Bearer ${TOKEN}`
       }
@@ -26,7 +24,7 @@ const PaginaJuegos = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(`${URL_API}/juegos`, {
+    api.get('/juegos', {
       params: { page: pagina, ...filtros },
       headers: {
         'Authorization': `Bearer ${TOKEN}`

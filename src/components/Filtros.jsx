@@ -8,8 +8,9 @@ const Filtros = ({ categorias, aplicarFiltros }) => {
   const [categoria, setCategoria] = useState("");
   const [precioMin, setPrecioMin] = useState("");
   const [precioMax, setPrecioMax] = useState("");
+  const [orden, setOrden] = useState("");
 
-  const hayCriterio = nombre.trim() !== "" || categoria !== "" || precioMin !== "" || precioMax !== "";
+  const hayCriterio = nombre.trim() !== "" || categoria !== "" || precioMin !== "" || precioMax !== "" || orden !== "";
   const precioNoPositivo = (precioMin !== "" && Number(precioMin) <= 0) || (precioMax !== "" && Number(precioMax) <= 0);
   const rangoInvalido = precioMin !== "" && precioMax !== "" && Number(precioMin) > Number(precioMax);
 
@@ -29,6 +30,7 @@ const Filtros = ({ categorias, aplicarFiltros }) => {
     if (categoria !== "") filtros.categoria = categoria;
     if (precioMin !== "") filtros.precioMin = Number(precioMin);
     if (precioMax !== "") filtros.precioMax = Number(precioMax);
+    if (orden !== "") filtros.ordenarPor = orden;
 
     aplicarFiltros(filtros);
   }
@@ -38,6 +40,7 @@ const Filtros = ({ categorias, aplicarFiltros }) => {
     setCategoria("");
     setPrecioMin("");
     setPrecioMax("");
+    setOrden("");
     aplicarFiltros({});
   }
 
@@ -60,6 +63,18 @@ const Filtros = ({ categorias, aplicarFiltros }) => {
           opciones={opcionesCategorias}
           value={categoria}
           onChange={e => setCategoria(e.target.value)}
+        />
+
+        <Select
+          label="Orden:"
+          id="filtroOrden"
+          placeholder="Ninguno"
+          opciones={[
+            { valor: "nombre", texto: "Nombre" },
+            { valor: "precio", texto: "Precio" }
+          ]}
+          value={orden}
+          onChange={e => setOrden(e.target.value)}
         />
 
         <Input
