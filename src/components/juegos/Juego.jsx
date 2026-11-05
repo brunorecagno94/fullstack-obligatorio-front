@@ -1,6 +1,7 @@
 import Tag from "../common/Tag"
+import Boton from "../common/Boton"
 
-const Juego = ({ nombreJuego, precioJuego, monedaJuego, categorias }) => {
+const Juego = ({ _id, nombreJuego, precioJuego, monedaJuego, categorias, comprado, limiteAlcanzado, comprar }) => {
   const categoriasValidas = categorias.filter(categoria => categoria !== null);
 
   return (
@@ -12,6 +13,11 @@ const Juego = ({ nombreJuego, precioJuego, monedaJuego, categorias }) => {
           <Tag key={categoria._id} texto={categoria.nombreCategoria} />
         ))}
       </div>
+      {comprado
+        ? <span className="juego__comprado">En tu biblioteca</span>
+        : <Boton onClick={() => comprar(_id)} disabled={limiteAlcanzado}>
+            {limiteAlcanzado ? 'Límite alcanzado' : 'Comprar'}
+          </Boton>}
     </div>
   )
 }

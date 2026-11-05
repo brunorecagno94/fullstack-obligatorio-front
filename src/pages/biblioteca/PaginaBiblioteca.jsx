@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import api from '../../api/api';
 import ListaBiblioteca from '../../components/biblioteca/ListaBiblioteca';
-import { TOKEN } from '../../config';
+import { useSelector } from 'react-redux';
 
 const PaginaBiblioteca = () => {
-
+  const token = useSelector(state => state.usuario.token);
   const [juegos, setJuegos] = useState([]);
   const [cargado, setCargado] = useState(false);
 
   useEffect(() => {
     api.get('/usuarios/compras', {
       headers: {
-        'Authorization': `Bearer ${TOKEN}`
+        'Authorization': `Bearer ${token}`
       }
     })
       .then(r => {

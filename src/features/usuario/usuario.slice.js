@@ -1,0 +1,27 @@
+import { createSlice } from '@reduxjs/toolkit'
+
+const initialState = {
+  token: localStorage.getItem('token'),
+  usuario: JSON.parse(localStorage.getItem('usuario'))
+}
+
+const usuarioSlice = createSlice({
+  name: 'usuario',
+  initialState,
+  reducers: {
+    iniciarSesion: (state, action) => {
+      state.token = action.payload.token
+      state.usuario = action.payload.usuario
+    },
+    cerrarSesion: (state) => {
+      state.token = null
+      state.usuario = null
+    },
+    comprarJuego: (state, action) => {
+      state.usuario.juegosComprados.push(action.payload)
+    }
+  }
+})
+
+export const { iniciarSesion, cerrarSesion, comprarJuego } = usuarioSlice.actions
+export default usuarioSlice.reducer

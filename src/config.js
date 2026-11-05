@@ -1,2 +1,0 @@
-// PROVISORIO: hasta que exista el login, el token va a mano
-export const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZWEzNjI0NzdkZTg1NWViNjE4YzA4MiIsInJvbCI6InVzdWFyaW8iLCJpYXQiOjE3OTM3MzQxODAsImV4cCI6MTc5MzczNzc4MH0.yxWxUhi4ujU4Ro8xUdq_vsnIF70syDCpPhT4vigNzOM";
