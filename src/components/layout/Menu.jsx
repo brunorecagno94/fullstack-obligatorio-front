@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
-import { cerrarSesion } from '../../features/usuario/usuario.slice'
+import { cerrarSesion } from '../../features/usuario.slice'
 import Boton from '../common/Boton'
 
 const Menu = () => {
@@ -27,6 +27,7 @@ const Menu = () => {
             <Link to="/usuario">Mi perfil</Link>
           </>
         }
+        {usuario.rol === 'admin' && <Link to="/categorias">Categorías</Link>}
       </nav>
       <span className="menu__usuario">{usuario.nombreUsuario}</span>
       <Boton variante="secundario" onClick={logout}>Cerrar sesión</Boton>

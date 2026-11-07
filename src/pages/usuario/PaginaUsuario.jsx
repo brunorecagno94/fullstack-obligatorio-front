@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import api from '../../api/api'
-import { cambiarPlan } from '../../features/usuario/usuario.slice'
+import { cambiarPlan } from '../../features/usuario.slice'
 import InformeCuenta from '../../components/usuario/InformeCuenta'
 import CambioPlan from '../../components/usuario/CambioPlan'
 

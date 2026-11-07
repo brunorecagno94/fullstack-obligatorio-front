@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify'
 import store from './store/store'
 import ContainerPage from './pages/ContainerPage'
 import PaginaBiblioteca from './pages/biblioteca/PaginaBiblioteca'
+import PaginaCategorias from './pages/categorias/PaginaCategorias'
 import PaginaLogin from './pages/auth/PaginaLogin'
 import PaginaJuegos from './pages/juegos/PaginaJuegos'
 import PaginaRegistro from './pages/auth/PaginaRegistro'
@@ -26,13 +27,16 @@ function App() {
             <Route path="/" element={<ContainerPage />}>
               <Route index element={<Navigate to="/juegos" />} />
               <Route path="juegos" element={<PaginaJuegos />} />
+              /* Rutas de Usuario */
               <Route element={<RutaProtegida rol="usuario" />}>
                 <Route path="usuario" element={<PaginaUsuario />} />
                 <Route path="biblioteca" element={<PaginaBiblioteca />} />
               </Route>
+              /* Rutas de Admin */
               <Route element={<RutaProtegida rol="admin" />}>
                 <Route path="juegos/nuevo" element={<PaginaCrearJuego />} />
                 <Route path="juegos/:id" element={<PaginaEditarJuego />} />
+                <Route path="categorias" element={<PaginaCategorias />} />
               </Route>
               <Route path="*" element={<PaginaNoEncontrada />} />
             </Route>

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import api from '../../api/api'
 import { loginSchema } from '../../validators/auth.validators'
-import { iniciarSesion } from '../../features/usuario/usuario.slice'
+import { iniciarSesion } from '../../features/usuario.slice'
 import Input from '../common/Input'
 import Boton from '../common/Boton'
 

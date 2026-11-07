@@ -11,7 +11,7 @@ const PaginaEditarJuego = () => {
   const token = useSelector(state => state.usuario.token)
   const navigate = useNavigate()
   const [juego, setJuego] = useState(null)
-  const [categorias, setCategorias] = useState([])
+  const categorias = useSelector(state => state.categoria.lista);
 
   useEffect(() => {
     const headers = { 'Authorization': `Bearer ${token}` }
@@ -21,9 +21,6 @@ const PaginaEditarJuego = () => {
         toast.error(error.response?.data?.message || 'No se pudo cargar el juego')
         navigate('/juegos')
       })
-    api.get('/categorias', { headers })
-      .then(r => setCategorias(r.data))
-      .catch(() => toast.error('No se pudieron cargar las categorías'))
   }, [id, token, navigate])
 
   const guardar = async (datos) => {

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
@@ -18,17 +17,7 @@ const valoresIniciales = {
 const PaginaCrearJuego = () => {
   const token = useSelector(state => state.usuario.token)
   const navigate = useNavigate()
-  const [categorias, setCategorias] = useState([])
-
-  useEffect(() => {
-    api.get('/categorias', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(r => setCategorias(r.data))
-      .catch(() => toast.error('No se pudieron cargar las categorías'))
-  }, [token])
+  const categorias = useSelector(state => state.categoria.lista);
 
   const guardar = async (datos) => {
     try {

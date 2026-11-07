@@ -7,27 +7,18 @@ import Paginador from '../../components/common/Paginador';
 import Filtros from '../../components/juegos/Filtros';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { comprarJuego } from '../../features/usuario/usuario.slice';
+import { comprarJuego } from '../../features/usuario.slice';
 
 const PaginaJuegos = () => {
   const dispatch = useDispatch();
   const token = useSelector(state => state.usuario.token);
   const usuario = useSelector(state => state.usuario.usuario);
+  const categorias = useSelector(state => state.categoria.lista);
   const [juegos, setJuegos] = useState([]);
   const [pagina, setPagina] = useState(1);
   const [totalPaginas, setTotalPaginas] = useState(1);
   const [filtros, setFiltros] = useState({});
-  const [categorias, setCategorias] = useState([]);
   const [cargado, setCargado] = useState(false);
-
-  useEffect(() => {
-    api.get('/categorias', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(r => setCategorias(r.data));
-  }, []);
 
   useEffect(() => {
     api.get('/juegos', {
