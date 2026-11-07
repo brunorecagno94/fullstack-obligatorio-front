@@ -21,7 +21,12 @@ const Menu = () => {
       <Link to="/juegos" className="menu__logo">Estim</Link>
       <nav className="menu__nav">
         <Link to="/juegos">Tienda</Link>
-        {usuario.rol === 'usuario' && <Link to="/biblioteca">Mi biblioteca</Link>}
+        {usuario.rol === 'usuario' &&
+          <>
+            <Link to="/biblioteca">Mi biblioteca</Link>
+            <Link to="/usuario">Mi perfil</Link>
+          </>
+        }
       </nav>
       <span className="menu__usuario">{usuario.nombreUsuario}</span>
       <Boton variante="secundario" onClick={logout}>Cerrar sesión</Boton>

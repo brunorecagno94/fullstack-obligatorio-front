@@ -19,9 +19,12 @@ const usuarioSlice = createSlice({
     },
     comprarJuego: (state, action) => {
       state.usuario.juegosComprados.push(action.payload)
+    },
+    cambiarPlan: (state, action) => {
+      state.usuario.planUsuario = action.payload
     }
   }
 })
 
-export const { iniciarSesion, cerrarSesion, comprarJuego } = usuarioSlice.actions
+export const { iniciarSesion, cerrarSesion, comprarJuego, cambiarPlan } = usuarioSlice.actions
 export default usuarioSlice.reducer

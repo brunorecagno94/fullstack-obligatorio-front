@@ -2,13 +2,16 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router'
 import { Provider } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 import store from './store/store'
-import RutaProtegida from './app/guards/RutaProtegida'
 import ContainerPage from './pages/ContainerPage'
-import PaginaLogin from './pages/auth/PaginaLogin'
-import PaginaRegistro from './pages/auth/PaginaRegistro'
-import PaginaJuegos from './pages/juegos/PaginaJuegos'
 import PaginaBiblioteca from './pages/biblioteca/PaginaBiblioteca'
+import PaginaLogin from './pages/auth/PaginaLogin'
+import PaginaJuegos from './pages/juegos/PaginaJuegos'
+import PaginaRegistro from './pages/auth/PaginaRegistro'
+import PaginaUsuario from './pages/usuario/PaginaUsuario'
+import PaginaCrearJuego from './pages/juegos/PaginaCrearJuego'
+import PaginaEditarJuego from './pages/juegos/PaginaEditarJuego'
 import PaginaNoEncontrada from './pages/PaginaNoEncontrada'
+import RutaProtegida from './app/guards/RutaProtegida'
 import './App.css'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -24,7 +27,12 @@ function App() {
               <Route index element={<Navigate to="/juegos" />} />
               <Route path="juegos" element={<PaginaJuegos />} />
               <Route element={<RutaProtegida rol="usuario" />}>
+                <Route path="usuario" element={<PaginaUsuario />} />
                 <Route path="biblioteca" element={<PaginaBiblioteca />} />
+              </Route>
+              <Route element={<RutaProtegida rol="admin" />}>
+                <Route path="juegos/nuevo" element={<PaginaCrearJuego />} />
+                <Route path="juegos/:id" element={<PaginaEditarJuego />} />
               </Route>
               <Route path="*" element={<PaginaNoEncontrada />} />
             </Route>

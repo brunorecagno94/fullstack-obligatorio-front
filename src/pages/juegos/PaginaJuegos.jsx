@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 import api from '../../api/api';
 import ListaJuegosUsuario from '../../components/juegos/ListaJuegosUsuario';
+import ListaJuegosAdmin from '../../components/juegos/ListaJuegosAdmin';
 import Paginador from '../../components/common/Paginador';
 import Filtros from '../../components/juegos/Filtros';
 import { useSelector, useDispatch } from 'react-redux';
@@ -64,20 +66,38 @@ const PaginaJuegos = () => {
     }
   }
 
+  const eliminar = async (idJuego, nombre) => {
+    if (!window.confirm(`¿Seguro que querés eliminar "${nombre}"?`)) return;
+    try {
+      const res = await api.delete(`/juegos/${idJuego}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      setJuegos(juegos.filter(juego => juego._id !== idJuego));
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'No se pudo eliminar el juego');
+    }
+  }
+  
   const limiteAlcanzado = usuario.planUsuario === 'plus' && usuario.juegosComprados.length >= 4;
 
   return (
     <div className="pagina-juegos">
+      {usuario.rol === 'admin' && (
+        <Link to="/juegos/nuevo" className="pagina-juegos__agregar">Agregar juego</Link>
+      )}
       <Filtros categorias={categorias} aplicarFiltros={aplicarFiltros} />
       {cargado && juegos.length === 0 && (
         <p className="pagina-juegos__vacio">No se encontró ningún juego</p>
       )}
-      <ListaJuegosUsuario
-        juegos={juegos}
-        juegosComprados={usuario.juegosComprados}
-        limiteAlcanzado={limiteAlcanzado}
-        comprar={comprar}
-      />
+      {usuario.rol === 'admin'
+        ? <ListaJuegosAdmin juegos={juegos} eliminar={eliminar} />
+        : <ListaJuegosUsuario
+          juegos={juegos}
+          juegosComprados={usuario.juegosComprados}
+          limiteAlcanzado={limiteAlcanzado}
+          comprar={comprar}
+        />}
       <Paginador pagina={pagina} totalPaginas={totalPaginas} cambiarPagina={setPagina} />
     </div>
   );
