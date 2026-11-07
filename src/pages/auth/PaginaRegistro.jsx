@@ -1,13 +1,16 @@
 import RegistroForm from '../../components/auth/RegistroForm'
+import logo from '../../assets/logo-estim.png'
 
 const PaginaRegistro = () => {
   return (
-    <div className="pagina-registro">
-      <header>
-        <h1>Estim</h1>
-        <h2>Registrarse</h2>
-      </header>
-      <RegistroForm />
+    <div className="auth pagina-registro">
+      <div className="auth__tarjeta auth__tarjeta--ancha">
+        <header className="auth__encabezado">
+          <img className="auth__logo" src={logo} alt="Estim" />
+          <h2>Crear cuenta</h2>
+        </header>
+        <RegistroForm />
+      </div>
     </div>
   )
 }

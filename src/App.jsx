@@ -27,17 +27,18 @@ function App() {
             <Route path="/" element={<ContainerPage />}>
               <Route index element={<Navigate to="/juegos" />} />
               <Route path="juegos" element={<PaginaJuegos />} />
-              /* Rutas de Usuario */
+             
               <Route element={<RutaProtegida rol="usuario" />}>
                 <Route path="usuario" element={<PaginaUsuario />} />
                 <Route path="biblioteca" element={<PaginaBiblioteca />} />
               </Route>
-              /* Rutas de Admin */
+              
               <Route element={<RutaProtegida rol="admin" />}>
                 <Route path="juegos/nuevo" element={<PaginaCrearJuego />} />
                 <Route path="juegos/:id" element={<PaginaEditarJuego />} />
                 <Route path="categorias" element={<PaginaCategorias />} />
               </Route>
+              
               <Route path="*" element={<PaginaNoEncontrada />} />
             </Route>
           </Route>

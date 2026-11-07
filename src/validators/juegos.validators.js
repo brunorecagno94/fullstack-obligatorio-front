@@ -38,7 +38,5 @@ export const crearJuegoSchema = Joi.object({
     'array.min': 'El juego debe tener al menos una categoría',
     'any.required': 'Las categorías son obligatorias',
   }),
-  // En el formulario, imagenJuego es el archivo elegido (un FileList), no la URL.
-  // La URL se obtiene después, al subir el archivo a Cloudinary.
   imagenJuego: Joi.any(),
 });

@@ -2,12 +2,17 @@ import { Link } from 'react-router'
 import Boton from '../common/Boton'
 import InfoJuego from './InfoJuego'
 
-const JuegoAdmin = ({ _id, nombreJuego, precioJuego, monedaJuego, categorias, eliminar }) => {
+const JuegoAdmin = ({ _id, nombreJuego, descripcionJuego, categorias, imagenJuego, eliminar }) => {
   return (
     <div className="juego">
-      <InfoJuego nombreJuego={nombreJuego} precioJuego={precioJuego} monedaJuego={monedaJuego} categorias={categorias} />
+      <InfoJuego
+        nombreJuego={nombreJuego}
+        descripcionJuego={descripcionJuego}
+        categorias={categorias}
+        imagenJuego={imagenJuego}
+      />
       <div className="juego__acciones">
-        <Link to={`/juegos/${_id}`} className="juego__editar">Editar</Link>
+        <Link to={`/juegos/${_id}`} className="btn btn-secundario">Editar</Link>
         <Boton variante="peligro" onClick={() => eliminar(_id, nombreJuego)}>Eliminar</Boton>
       </div>
     </div>

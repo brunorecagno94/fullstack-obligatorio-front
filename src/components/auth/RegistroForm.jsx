@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, Link } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useDispatch } from 'react-redux'
@@ -54,27 +54,36 @@ const RegistroForm = () => {
       <form onSubmit={handleSubmit(ingresar)}>
         <Input label="Nombre de usuario *:" id="loginUsuario" type="text"
           {...register('nombreUsuario')} error={errors.nombreUsuario?.message} required />
-        <Input label="Contraseña *:" id="loginPassword" type="password"
-          {...register('password')} error={errors.password?.message} required />
-        <Input label="Confirmar Contraseña *:" id="loginRepetirPassword" type="password"
-          {...register('repetirPassword')} error={errors.repetirPassword?.message} required />
         <Input label="Email *:" id="loginEmail" type="email"
           {...register('email')} error={errors.email?.message} required />
-        <Input label="Nombre:" id="loginNombre" type="text"
-          {...register('nombre')} error={errors.nombre?.message} />
-        <Input label="Apellido:" id="loginApellido" type="text"
-          {...register('apellido')} error={errors.apellido?.message} />
-        <Input label="Fecha de Nacimiento *:" id="loginFechaNacimiento" type="date"
-          {...register('fechaNacimiento')} error={errors.fechaNacimiento?.message} required />
-        <Select label="País:" id="registroPais" placeholder="Elegí tu país"
-          opciones={paises.map(pais => ({ valor: pais, texto: pais }))}
-          {...register('pais')} error={errors.pais?.message} />
 
-        <p>(*) Estos campos son obligatorios</p>
+        <div className="auth__fila">
+          <Input label="Contraseña *:" id="loginPassword" type="password"
+            {...register('password')} error={errors.password?.message} required />
+          <Input label="Confirmar contraseña *:" id="loginRepetirPassword" type="password"
+            {...register('repetirPassword')} error={errors.repetirPassword?.message} required />
+        </div>
+
+        <div className="auth__fila">
+          <Input label="Nombre:" id="loginNombre" type="text"
+            {...register('nombre')} error={errors.nombre?.message} />
+          <Input label="Apellido:" id="loginApellido" type="text"
+            {...register('apellido')} error={errors.apellido?.message} />
+        </div>
+
+        <div className="auth__fila">
+          <Input label="Fecha de nacimiento *:" id="loginFechaNacimiento" type="date"
+            {...register('fechaNacimiento')} error={errors.fechaNacimiento?.message} required />
+          <Select label="País:" id="registroPais" placeholder="Elegí tu país"
+            opciones={paises.map(pais => ({ valor: pais, texto: pais }))}
+            {...register('pais')} error={errors.pais?.message} />
+        </div>
+
+        <p className="auth__nota">(*) Estos campos son obligatorios</p>
 
         <Boton type="submit" disabled={!isValid || isSubmitting}>Registrarse</Boton>
       </form>
-      <p>¿Ya tenés una cuenta? <a href="/login">Ingresá acá</a></p>
+      <p>¿Ya tenés una cuenta? <Link to="/login">Ingresá acá</Link></p>
     </>
   )
 }

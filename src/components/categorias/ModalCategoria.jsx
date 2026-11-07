@@ -25,10 +25,10 @@ const ModalCategoria = ({ categoria, guardar, cerrar }) => {
             error={errors.nombreCategoria?.message}
           />
           <div className="modal__acciones">
-            <Boton variante="secundario" onClick={cerrar}>Cancelar</Boton>
             <Boton type="submit" disabled={!isValid || isSubmitting}>
               {isSubmitting ? 'Guardando...' : 'Guardar'}
             </Boton>
+            <Boton variante="secundario" onClick={cerrar}>Cancelar</Boton>
           </div>
         </form>
       </div>

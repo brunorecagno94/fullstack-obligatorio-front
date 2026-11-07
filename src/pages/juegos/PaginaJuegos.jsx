@@ -5,6 +5,7 @@ import ListaJuegosUsuario from '../../components/juegos/ListaJuegosUsuario';
 import ListaJuegosAdmin from '../../components/juegos/ListaJuegosAdmin';
 import Paginador from '../../components/common/Paginador';
 import Filtros from '../../components/juegos/Filtros';
+import ModalConfirmacion from '../../components/common/ModalConfirmacion';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { comprarJuego } from '../../features/usuario.slice';
@@ -19,6 +20,8 @@ const PaginaJuegos = () => {
   const [totalPaginas, setTotalPaginas] = useState(1);
   const [filtros, setFiltros] = useState({});
   const [cargado, setCargado] = useState(false);
+  const [recargas, setRecargas] = useState(0);
+  const [juegoAEliminar, setJuegoAEliminar] = useState(null);
 
   useEffect(() => {
     api.get('/juegos', {
@@ -28,11 +31,18 @@ const PaginaJuegos = () => {
       }
     })
       .then(r => {
+        if (r.data.juegos.length === 0 && pagina > 1) {
+          setPagina(pagina - 1);
+          return;
+        }
         setJuegos(r.data.juegos);
         setTotalPaginas(Math.max(r.data.totalPages, 1));
         setCargado(true);
       })
-  }, [pagina, filtros]);
+      .catch(error => {
+        if (error.response?.status !== 401) toast.error('No se pudieron cargar los juegos');
+      })
+  }, [pagina, filtros, token, recargas]);
 
   const aplicarFiltros = (nuevosFiltros) => {
     setFiltros(nuevosFiltros);
@@ -57,17 +67,21 @@ const PaginaJuegos = () => {
     }
   }
 
-  const eliminar = async (idJuego, nombre) => {
-    if (!window.confirm(`¿Seguro que querés eliminar "${nombre}"?`)) return;
+  const eliminar = (idJuego, nombre) => {
+    setJuegoAEliminar({ _id: idJuego, nombre });
+  }
+
+  const confirmarEliminacion = async () => {
     try {
-      const res = await api.delete(`/juegos/${idJuego}`, {
+      const res = await api.delete(`/juegos/${juegoAEliminar._id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      setJuegos(juegos.filter(juego => juego._id !== idJuego));
+      setRecargas(recargas + 1);
       toast.success(res.data.message);
     } catch (error) {
       toast.error(error.response?.data?.message || 'No se pudo eliminar el juego');
     }
+    setJuegoAEliminar(null);
   }
   
   const limiteAlcanzado = usuario.planUsuario === 'plus' && usuario.juegosComprados.length >= 4;
@@ -75,7 +89,7 @@ const PaginaJuegos = () => {
   return (
     <div className="pagina-juegos">
       {usuario.rol === 'admin' && (
-        <Link to="/juegos/nuevo" className="pagina-juegos__agregar">Agregar juego</Link>
+        <Link to="/juegos/nuevo" className="btn btn-principal pagina-juegos__agregar">+ Agregar juego</Link>
       )}
       <Filtros categorias={categorias} aplicarFiltros={aplicarFiltros} />
       {cargado && juegos.length === 0 && (
@@ -90,6 +104,15 @@ const PaginaJuegos = () => {
           comprar={comprar}
         />}
       <Paginador pagina={pagina} totalPaginas={totalPaginas} cambiarPagina={setPagina} />
+      {juegoAEliminar && (
+        <ModalConfirmacion
+          titulo="Eliminar juego"
+          mensaje={`¿Seguro que querés eliminar "${juegoAEliminar.nombre}"? Esta acción no se puede deshacer.`}
+          textoConfirmar="Eliminar"
+          confirmar={confirmarEliminacion}
+          cancelar={() => setJuegoAEliminar(null)}
+        />
+      )}
     </div>
   );
 };

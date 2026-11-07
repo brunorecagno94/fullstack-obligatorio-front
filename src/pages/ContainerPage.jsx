@@ -18,7 +18,9 @@ const ContainerPage = () => {
       }
     })
       .then(r => dispatch(setCategorias(r.data)))
-      .catch(() => toast.error('No se pudieron cargar las categorías'))
+      .catch(error => {
+        if (error.response?.status !== 401) toast.error('No se pudieron cargar las categorías')
+      })
   }, [token, dispatch])
 
   return (

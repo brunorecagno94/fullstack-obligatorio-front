@@ -9,6 +9,7 @@ const Filtros = ({ categorias, aplicarFiltros }) => {
   const [precioMin, setPrecioMin] = useState("");
   const [precioMax, setPrecioMax] = useState("");
   const [orden, setOrden] = useState("");
+  const [abierto, setAbierto] = useState(false);
 
   const hayCriterio = nombre.trim() !== "" || categoria !== "" || precioMin !== "" || precioMax !== "" || orden !== "";
   const precioNoPositivo = (precioMin !== "" && Number(precioMin) <= 0) || (precioMax !== "" && Number(precioMax) <= 0);
@@ -46,7 +47,12 @@ const Filtros = ({ categorias, aplicarFiltros }) => {
 
   return (
     <div className="filtros">
-      <form className="filtros__form">
+      <div className="filtros__toggle">
+        <Boton variante="secundario" onClick={() => setAbierto(!abierto)}>
+          {abierto ? 'Ocultar filtros ▲' : 'Mostrar filtros ▼'}
+        </Boton>
+      </div>
+      <form className={abierto ? 'filtros__form filtros__form--abierto' : 'filtros__form'}>
         <Input
           label="Nombre:"
           type="text"
@@ -95,12 +101,14 @@ const Filtros = ({ categorias, aplicarFiltros }) => {
           onChange={e => setPrecioMax(e.target.value)}
         />
 
-        <Boton onClick={filtrar} disabled={!hayCriterio || error !== ""}>
-          Filtrar
-        </Boton>
-        <Boton variante="secundario" onClick={limpiar} disabled={!hayCriterio || error !== ""}>
-          Limpiar
-        </Boton>
+        <div className="filtros__botones">
+          <Boton onClick={filtrar} disabled={!hayCriterio || error !== ""}>
+            Filtrar
+          </Boton>
+          <Boton variante="secundario" onClick={limpiar} disabled={!hayCriterio || error !== ""}>
+            Limpiar
+          </Boton>
+        </div>
       </form>
       {error !== "" && <p className="filtros__error">{error}</p>}
     </div>

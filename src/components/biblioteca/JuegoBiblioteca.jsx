@@ -1,8 +1,20 @@
-const JuegoBiblioteca = ({ nombreJuego, descripcionJuego }) => {
+import Boton from '../common/Boton'
+import InfoJuego from '../juegos/InfoJuego'
+
+const JuegoBiblioteca = ({ _id, nombreJuego, descripcionJuego, categorias, imagenJuego, quitar }) => {
   return (
-    <div className="juego-biblioteca">
-      <h3 className="juego-biblioteca__nombre">{nombreJuego}</h3>
-      <p className="juego-biblioteca__descripcion">{descripcionJuego}</p>
+    <div className="juego">
+      <InfoJuego
+        nombreJuego={nombreJuego}
+        descripcionJuego={descripcionJuego}
+        categorias={categorias}
+        imagenJuego={imagenJuego}
+      />
+      <div className="juego__acciones">
+        <Boton variante="peligro" onClick={() => quitar(_id, nombreJuego)}>
+          Quitar de la biblioteca
+        </Boton>
+      </div>
     </div>
   )
 }

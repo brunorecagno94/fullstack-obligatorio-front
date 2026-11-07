@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect, useMemo, useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { crearJuegoSchema } from '../../validators/juegos.validators'
 import Input from '../common/Input'
@@ -14,8 +14,20 @@ const opcionesMoneda = [
 
 const FormularioJuego = ({ valoresIniciales, categorias, guardar, textoBoton, imagenActual, generarDescripcion }) => {
   const [generando, setGenerando] = useState(false)
-  const { register, handleSubmit, setValue, formState: { errors, isValid, isSubmitting } } =
+  const { register, handleSubmit, setValue, control, formState: { errors, isValid, isSubmitting } } =
     useForm({ resolver: joiResolver(crearJuegoSchema), mode: 'onChange', defaultValues: valoresIniciales })
+
+  const archivo = useWatch({ control, name: 'imagenJuego' })?.[0]
+
+  const vistaPrevia = useMemo(() => (archivo ? URL.createObjectURL(archivo) : null), [archivo])
+
+  useEffect(() => {
+    return () => {
+      if (vistaPrevia) URL.revokeObjectURL(vistaPrevia)
+    }
+  }, [vistaPrevia])
+
+  const imagenMostrada = vistaPrevia || imagenActual
 
   const completarConIA = async () => {
     setGenerando(true)
@@ -43,7 +55,14 @@ const FormularioJuego = ({ valoresIniciales, categorias, guardar, textoBoton, im
 
         {generarDescripcion && (
           <Boton variante="secundario" onClick={completarConIA} disabled={generando}>
-            {generando ? 'Generando...' : 'Generar descripción con IA'}
+            <span className="boton-ia">
+              <svg className="boton-ia__icono" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M10 2c.6 5.4 2.6 7.4 8 8-5.4.6-7.4 2.6-8 8-.6-5.4-2.6-7.4-8-8 5.4-.6 7.4-2.6 8-8z" />
+                <path d="M18.5 1c.3 2.1.8 2.6 2.9 2.9-2.1.3-2.6.8-2.9 2.9-.3-2.1-.8-2.6-2.9-2.9 2.1-.3 2.6-.8 2.9-2.9z" />
+                <path d="M19 15c.25 1.6.65 2 2.25 2.25-1.6.25-2 .65-2.25 2.25-.25-1.6-.65-2-2.25-2.25 1.6-.25 2-.65 2.25-2.25z" />
+              </svg>
+              {generando ? 'Generando...' : 'Generar descripción con IA'}
+            </span>
           </Boton>
         )}
       </div>
@@ -85,16 +104,36 @@ const FormularioJuego = ({ valoresIniciales, categorias, guardar, textoBoton, im
         {errors.categorias && <span className="mensaje-error">{errors.categorias.message}</span>}
       </fieldset>
 
-      {imagenActual && (
-        <img className="formulario-juego__imagen" src={imagenActual} alt="Imagen actual del juego" />
-      )}
-      <Input
-        label={imagenActual ? 'Cambiar imagen:' : 'Imagen:'}
-        id="juegoImagen"
-        type="file"
-        accept="image/*"
-        {...register('imagenJuego')}
-      />
+      <div className="form__group formulario-juego__imagen-seccion">
+        <span className="formulario-juego__etiqueta">Imagen:</span>
+
+        <div className="formulario-juego__vista-previa">
+          {imagenMostrada
+            ? <img src={imagenMostrada} alt="Vista previa de la imagen del juego" />
+            : <span className="formulario-juego__sin-imagen">Sin imagen</span>}
+          {vistaPrevia && <span className="formulario-juego__insignia">Nueva</span>}
+        </div>
+
+        {/* El input real queda oculto: se abre al tocar el label con estilo de botón */}
+        <input
+          id="juegoImagen"
+          type="file"
+          accept="image/*"
+          className="formulario-juego__archivo"
+          {...register('imagenJuego')}
+        />
+        <div className="formulario-juego__archivo-fila">
+          <label htmlFor="juegoImagen" className="btn btn-secundario">
+            {imagenMostrada ? 'Cambiar imagen' : 'Elegir imagen'}
+          </label>
+          <span className="formulario-juego__archivo-nombre">
+            {archivo ? archivo.name : 'Ningún archivo seleccionado'}
+          </span>
+        </div>
+        <span className="formulario-juego__ayuda">
+          JPG, PNG o WEBP, hasta 5 MB. La imagen se sube al guardar.
+        </span>
+      </div>
 
       <Boton type="submit" disabled={!isValid || isSubmitting}>
         {isSubmitting ? 'Guardando...' : textoBoton}

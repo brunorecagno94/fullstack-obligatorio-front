@@ -20,11 +20,14 @@ const usuarioSlice = createSlice({
     comprarJuego: (state, action) => {
       state.usuario.juegosComprados.push(action.payload)
     },
+    quitarJuego: (state, action) => {
+      state.usuario.juegosComprados = state.usuario.juegosComprados.filter(id => id !== action.payload)
+    },
     cambiarPlan: (state, action) => {
       state.usuario.planUsuario = action.payload
     }
   }
 })
 
-export const { iniciarSesion, cerrarSesion, comprarJuego, cambiarPlan } = usuarioSlice.actions
+export const { iniciarSesion, cerrarSesion, comprarJuego, quitarJuego, cambiarPlan } = usuarioSlice.actions
 export default usuarioSlice.reducer

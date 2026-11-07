@@ -1,10 +1,10 @@
 import JuegoBiblioteca from "./JuegoBiblioteca"
 
-const ListaBiblioteca = ({ juegos }) => {
+const ListaBiblioteca = ({ juegos, quitar }) => {
   return (
-    <div className="lista-biblioteca">
+    <div className="lista-juegos">
       {juegos.map(juego => (
-        <JuegoBiblioteca key={juego._id} {...juego} />
+        <JuegoBiblioteca key={juego._id} {...juego} quitar={quitar} />
       ))}
     </div>
   )
