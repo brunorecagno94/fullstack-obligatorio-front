@@ -3,12 +3,7 @@ import { Outlet, Navigate } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { cerrarSesion } from '../../features/usuario.slice'
-
-const tokenVencido = (token) => {
-  const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
-  const { exp } = JSON.parse(atob(payload))
-  return exp * 1000 < Date.now()
-}
+import { tokenVencido } from '../../utils/token.utils'
 
 const RutaProtegida = ({ rol }) => {
   const dispatch = useDispatch()

@@ -13,6 +13,7 @@ import PaginaCrearJuego from './pages/juegos/PaginaCrearJuego'
 import PaginaEditarJuego from './pages/juegos/PaginaEditarJuego'
 import PaginaNoEncontrada from './pages/PaginaNoEncontrada'
 import RutaProtegida from './app/guards/RutaProtegida'
+import RutaPublica from './app/guards/RutaPublica'
 import './App.css'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -21,24 +22,26 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<PaginaLogin />} />
-          <Route path="/registro" element={<PaginaRegistro />} />
+          <Route element={<RutaPublica />}>
+            <Route path="/login" element={<PaginaLogin />} />
+            <Route path="/registro" element={<PaginaRegistro />} />
+          </Route>
           <Route element={<RutaProtegida />}>
             <Route path="/" element={<ContainerPage />}>
               <Route index element={<Navigate to="/juegos" />} />
               <Route path="juegos" element={<PaginaJuegos />} />
-             
+
               <Route element={<RutaProtegida rol="usuario" />}>
                 <Route path="usuario" element={<PaginaUsuario />} />
                 <Route path="biblioteca" element={<PaginaBiblioteca />} />
               </Route>
-              
+
               <Route element={<RutaProtegida rol="admin" />}>
                 <Route path="juegos/nuevo" element={<PaginaCrearJuego />} />
                 <Route path="juegos/:id" element={<PaginaEditarJuego />} />
                 <Route path="categorias" element={<PaginaCategorias />} />
               </Route>
-              
+
               <Route path="*" element={<PaginaNoEncontrada />} />
             </Route>
           </Route>
