@@ -32,7 +32,7 @@ const RegistroForm = () => {
       toast.success(`¡Bienvenido, ${res.data.usuario.nombreUsuario}!`);
       navigate('/juegos');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'No se pudo iniciar sesión');
+      toast.error(error.response?.data?.message || 'Ocurrió un error, intenta nuevamente');
     }
   }
 

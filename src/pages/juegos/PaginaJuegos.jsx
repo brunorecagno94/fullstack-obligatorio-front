@@ -10,6 +10,7 @@ import Loader from '../../components/common/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { comprarJuego } from '../../features/usuario.slice';
+import { obtenerMoneda } from '../../utils/monedas.utils';
 
 const PaginaJuegos = () => {
   const dispatch = useDispatch();
@@ -75,6 +76,21 @@ const PaginaJuegos = () => {
     }
   }
 
+  const monedaUsuario = obtenerMoneda(usuario.pais);
+
+  const convertirPrecio = async (idJuego) => {
+    try {
+      const res = await api.get(`/juegos/${idJuego}/convertir-precio`, {
+        params: { moneda: monedaUsuario },
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      return res.data.precioConvertido;
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'No se pudo convertir el precio');
+      return null;
+    }
+  }
+
   const eliminar = (idJuego, nombre) => {
     setJuegoAEliminar({ _id: idJuego, nombre });
   }
@@ -113,6 +129,8 @@ const PaginaJuegos = () => {
               juegosComprados={usuario.juegosComprados}
               limiteAlcanzado={limiteAlcanzado}
               comprar={comprar}
+              monedaUsuario={monedaUsuario}
+              convertirPrecio={convertirPrecio}
             />}
           <Paginador pagina={pagina} totalPaginas={totalPaginas} cambiarPagina={cambiarPagina} />
         </>

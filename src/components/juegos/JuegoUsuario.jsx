@@ -1,7 +1,18 @@
+import { useState } from 'react'
 import Boton from '../common/Boton'
 import InfoJuego from './InfoJuego'
 
-const JuegoUsuario = ({ _id, nombreJuego, descripcionJuego, precioJuego, monedaJuego, categorias, imagenJuego, comprado, limiteAlcanzado, comprar }) => {
+const JuegoUsuario = ({ _id, nombreJuego, descripcionJuego, precioJuego, monedaJuego, categorias, imagenJuego, comprado, limiteAlcanzado, comprar, monedaUsuario, convertirPrecio }) => {
+  const [precioConvertido, setPrecioConvertido] = useState(null)
+  const [convirtiendo, setConvirtiendo] = useState(false)
+
+  const verPrecio = async () => {
+    setConvirtiendo(true)
+    const precio = await convertirPrecio(_id)
+    setPrecioConvertido(precio)
+    setConvirtiendo(false)
+  }
+
   return (
     <div className="juego">
       <InfoJuego
@@ -20,6 +31,15 @@ const JuegoUsuario = ({ _id, nombreJuego, descripcionJuego, precioJuego, monedaJ
               </span>
             </Boton>}
       </div>
+      {!comprado && monedaJuego !== monedaUsuario && (
+        <div className="juego__conversion">
+          {precioConvertido !== null
+            ? <span>≈ {monedaUsuario} {precioConvertido.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+            : <Boton variante="enlace" onClick={verPrecio} disabled={convirtiendo}>
+                {convirtiendo ? 'Convirtiendo...' : `Ver precio en ${monedaUsuario}`}
+              </Boton>}
+        </div>
+      )}
     </div>
   )
 }

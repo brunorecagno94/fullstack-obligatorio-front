@@ -551,6 +551,32 @@
   font-weight: 700;
 }
 
+/* Precio convertido a la moneda del usuario, debajo del botón de compra */
+.juego__conversion {
+  padding: 0 12px 12px;
+  margin-top: -4px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+/* Botón con aspecto de link (sin fondo ni relleno) */
+.btn-enlace {
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--acento);
+  font-size: 13px;
+}
+
+.btn-enlace:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.btn-enlace:disabled {
+  color: var(--texto-suave);
+}
+
 /* ===== Modales (confirmación y categorías) ===== */
 .modal {
   position: fixed;
