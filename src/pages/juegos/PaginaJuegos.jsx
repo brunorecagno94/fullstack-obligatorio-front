@@ -6,6 +6,7 @@ import ListaJuegosAdmin from '../../components/juegos/ListaJuegosAdmin';
 import Paginador from '../../components/common/Paginador';
 import Filtros from '../../components/juegos/Filtros';
 import ModalConfirmacion from '../../components/common/ModalConfirmacion';
+import Loader from '../../components/common/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { comprarJuego } from '../../features/usuario.slice';
@@ -19,7 +20,7 @@ const PaginaJuegos = () => {
   const [pagina, setPagina] = useState(1);
   const [totalPaginas, setTotalPaginas] = useState(1);
   const [filtros, setFiltros] = useState({});
-  const [cargado, setCargado] = useState(false);
+  const [cargando, setCargando] = useState(true);
   const [recargas, setRecargas] = useState(0);
   const [juegoAEliminar, setJuegoAEliminar] = useState(null);
 
@@ -37,16 +38,23 @@ const PaginaJuegos = () => {
         }
         setJuegos(r.data.juegos);
         setTotalPaginas(Math.max(r.data.totalPages, 1));
-        setCargado(true);
+        setCargando(false);
       })
       .catch(error => {
+        setCargando(false);
         if (error.response?.status !== 401) toast.error('No se pudieron cargar los juegos');
       })
   }, [pagina, filtros, token, recargas]);
 
   const aplicarFiltros = (nuevosFiltros) => {
+    setCargando(true);
     setFiltros(nuevosFiltros);
     setPagina(1);
+  }
+
+  const cambiarPagina = (nuevaPagina) => {
+    setCargando(true);
+    setPagina(nuevaPagina);
   }
 
   const comprar = async (idJuego) => {
@@ -76,6 +84,7 @@ const PaginaJuegos = () => {
       const res = await api.delete(`/juegos/${juegoAEliminar._id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
+      setCargando(true);
       setRecargas(recargas + 1);
       toast.success(res.data.message);
     } catch (error) {
@@ -92,18 +101,22 @@ const PaginaJuegos = () => {
         <Link to="/juegos/nuevo" className="btn btn-principal pagina-juegos__agregar">+ Agregar juego</Link>
       )}
       <Filtros categorias={categorias} aplicarFiltros={aplicarFiltros} />
-      {cargado && juegos.length === 0 && (
-        <p className="pagina-juegos__vacio">No se encontró ningún juego</p>
+      {cargando ? <Loader /> : (
+        <>
+          {juegos.length === 0 && (
+            <p className="pagina-juegos__vacio">No se encontró ningún juego</p>
+          )}
+          {usuario.rol === 'admin'
+            ? <ListaJuegosAdmin juegos={juegos} eliminar={eliminar} />
+            : <ListaJuegosUsuario
+              juegos={juegos}
+              juegosComprados={usuario.juegosComprados}
+              limiteAlcanzado={limiteAlcanzado}
+              comprar={comprar}
+            />}
+          <Paginador pagina={pagina} totalPaginas={totalPaginas} cambiarPagina={cambiarPagina} />
+        </>
       )}
-      {usuario.rol === 'admin'
-        ? <ListaJuegosAdmin juegos={juegos} eliminar={eliminar} />
-        : <ListaJuegosUsuario
-          juegos={juegos}
-          juegosComprados={usuario.juegosComprados}
-          limiteAlcanzado={limiteAlcanzado}
-          comprar={comprar}
-        />}
-      <Paginador pagina={pagina} totalPaginas={totalPaginas} cambiarPagina={setPagina} />
       {juegoAEliminar && (
         <ModalConfirmacion
           titulo="Eliminar juego"

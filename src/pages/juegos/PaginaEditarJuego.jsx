@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import api from '../../api/api'
 import { subirImagen } from '../../api/subirImagen'
 import FormularioJuego from '../../components/juegos/FormularioJuego'
+import Loader from '../../components/common/Loader'
 
 const PaginaEditarJuego = () => {
   const { id } = useParams()
@@ -57,7 +58,7 @@ const PaginaEditarJuego = () => {
     }
   }
 
-  if (!juego) return <p>Cargando...</p>
+  if (!juego) return <Loader />
 
   const valoresIniciales = {
     nombreJuego: juego.nombreJuego,

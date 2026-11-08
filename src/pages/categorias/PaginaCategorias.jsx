@@ -8,6 +8,7 @@ import ListaCategorias from '../../components/categorias/ListaCategorias'
 import ModalCategoria from '../../components/categorias/ModalCategoria'
 import ModalConfirmacion from '../../components/common/ModalConfirmacion'
 import Boton from '../../components/common/Boton'
+import Loader from '../../components/common/Loader'
 
 const PaginaCategorias = () => {
   const token = useSelector(state => state.usuario.token)
@@ -17,6 +18,7 @@ const PaginaCategorias = () => {
   const [categoriaEditando, setCategoriaEditando] = useState(null)
   const [categoriaAEliminar, setCategoriaAEliminar] = useState(null)
   const [juegos, setJuegos] = useState([])
+  const [cargandoGrafico, setCargandoGrafico] = useState(true)
 
   useEffect(() => {
     const traerTodosLosJuegos = async () => {
@@ -32,6 +34,7 @@ const PaginaCategorias = () => {
       } catch (error) {
         if (error.response?.status !== 401) toast.error('No se pudieron cargar los datos del gráfico')
       }
+      setCargandoGrafico(false)
     }
     traerTodosLosJuegos()
   }, [token])
@@ -100,7 +103,9 @@ const PaginaCategorias = () => {
       <Boton onClick={abrirNueva}>+ Agregar categoría</Boton>
       {categorias.length === 0 && <p>No hay categorías cargadas</p>}
       <ListaCategorias categorias={categorias} editar={abrirEdicion} eliminar={eliminar} />
-      {juegos.length > 0 && <GraficoCategorias etiquetas={etiquetas} cantidades={cantidades} />}
+      {cargandoGrafico
+        ? <Loader texto="Cargando gráfico..." />
+        : juegos.length > 0 && <GraficoCategorias etiquetas={etiquetas} cantidades={cantidades} />}
       {modalAbierto && (
         <ModalCategoria categoria={categoriaEditando} guardar={guardar} cerrar={cerrarModal} />
       )}

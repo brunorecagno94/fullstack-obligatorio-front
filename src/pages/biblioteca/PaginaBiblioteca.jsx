@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../../api/api';
 import ListaBiblioteca from '../../components/biblioteca/ListaBiblioteca';
 import ModalConfirmacion from '../../components/common/ModalConfirmacion';
+import Loader from '../../components/common/Loader';
 import { useSelector, useDispatch } from 'react-redux';
 import { quitarJuego } from '../../features/usuario.slice';
 import { toast } from 'react-toastify';
@@ -25,6 +26,7 @@ const PaginaBiblioteca = () => {
         setCargado(true);
       })
       .catch(error => {
+        setCargado(true);
         if (error.response?.status !== 401) toast.error('No se pudo cargar tu biblioteca');
       })
   }, [token]);
@@ -57,10 +59,14 @@ const PaginaBiblioteca = () => {
   return (
     <div className="pagina-biblioteca">
       <h2>Mi biblioteca</h2>
-      {cargado && juegos.length === 0 && (
-        <p className="pagina-biblioteca__vacio">Todavía no compraste ningún juego</p>
+      {!cargado ? <Loader /> : (
+        <>
+          {juegos.length === 0 && (
+            <p className="pagina-biblioteca__vacio">Todavía no compraste ningún juego</p>
+          )}
+          <ListaBiblioteca juegos={juegos} quitar={quitar} />
+        </>
       )}
-      <ListaBiblioteca juegos={juegos} quitar={quitar} />
       {juegoAQuitar && (
         <ModalConfirmacion
           titulo="Quitar de la biblioteca"
