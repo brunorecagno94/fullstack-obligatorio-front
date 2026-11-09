@@ -130,9 +130,6 @@ const FormularioJuego = ({ valoresIniciales, categorias, guardar, textoBoton, im
             {archivo ? archivo.name : 'Ningún archivo seleccionado'}
           </span>
         </div>
-        <span className="formulario-juego__ayuda">
-          JPG, PNG o WEBP, hasta 5 MB. La imagen se sube al guardar.
-        </span>
       </div>
 
       <Boton type="submit" disabled={!isValid || isSubmitting}>

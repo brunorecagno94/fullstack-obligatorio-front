@@ -5,6 +5,17 @@ import InfoJuego from './InfoJuego'
 const JuegoUsuario = ({ _id, nombreJuego, descripcionJuego, precioJuego, monedaJuego, categorias, imagenJuego, comprado, limiteAlcanzado, comprar, monedaUsuario, convertirPrecio }) => {
   const [precioConvertido, setPrecioConvertido] = useState(null)
   const [convirtiendo, setConvirtiendo] = useState(false)
+  const [comprando, setComprando] = useState(false)
+  
+  const manejarCompra = async () => {
+    setComprando(true)
+    await comprar(_id)
+    setComprando(false)
+  }
+
+  let textoCompra = 'Comprar'
+  if (limiteAlcanzado) textoCompra = 'Límite alcanzado'
+  if (comprando) textoCompra = 'Comprando...'
 
   const verPrecio = async () => {
     setConvirtiendo(true)
@@ -24,9 +35,9 @@ const JuegoUsuario = ({ _id, nombreJuego, descripcionJuego, precioJuego, monedaJ
       <div className="juego__acciones">
         {comprado
           ? <span className="juego__comprado">En tu biblioteca</span>
-          : <Boton onClick={() => comprar(_id)} disabled={limiteAlcanzado}>
+          : <Boton onClick={manejarCompra} disabled={limiteAlcanzado || comprando}>
               <span className="juego__comprar">
-                <span>{limiteAlcanzado ? 'Límite alcanzado' : 'Comprar'}</span>
+                <span>{textoCompra}</span>
                 <span className="juego__comprar-precio">{monedaJuego} {precioJuego}</span>
               </span>
             </Boton>}

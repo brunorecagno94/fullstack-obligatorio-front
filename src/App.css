@@ -706,11 +706,6 @@
   max-width: 260px;
 }
 
-.formulario-juego__ayuda {
-  color: var(--texto-suave);
-  font-size: 12px;
-}
-
 /* ===== Botón de IA con ícono de chispas ===== */
 .boton-ia {
   display: inline-flex;

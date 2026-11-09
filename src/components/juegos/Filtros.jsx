@@ -111,7 +111,7 @@ const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden =
           <Boton onClick={filtrar} disabled={!hayCriterio || error !== ""}>
             Filtrar
           </Boton>
-          <Boton variante="secundario" onClick={limpiar} disabled={!hayCriterio || error !== ""}>
+          <Boton variante="secundario" onClick={limpiar} disabled={!hayCriterio}>
             Limpiar
           </Boton>
         </div>

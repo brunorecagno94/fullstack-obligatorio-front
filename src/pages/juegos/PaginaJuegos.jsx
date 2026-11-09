@@ -26,6 +26,8 @@ const PaginaJuegos = () => {
   const [juegoAEliminar, setJuegoAEliminar] = useState(null);
 
   useEffect(() => {
+    let vigente = true;
+
     api.get('/juegos', {
       params: { page: pagina, ...filtros },
       headers: {
@@ -33,6 +35,7 @@ const PaginaJuegos = () => {
       }
     })
       .then(r => {
+        if (!vigente) return;
         if (r.data.juegos.length === 0 && pagina > 1) {
           setPagina(pagina - 1);
           return;
@@ -42,9 +45,14 @@ const PaginaJuegos = () => {
         setCargando(false);
       })
       .catch(error => {
+        if (!vigente) return;
         setCargando(false);
         if (error.response?.status !== 401) toast.error('No se pudieron cargar los juegos');
       })
+
+    return () => {
+      vigente = false;
+    };
   }, [pagina, filtros, token, recargas]);
 
   const aplicarFiltros = (nuevosFiltros) => {
