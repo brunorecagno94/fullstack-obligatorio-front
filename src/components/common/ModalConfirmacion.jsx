@@ -1,14 +1,15 @@
-import { useState } from 'react'
-import Boton from './Boton'
+import { useId, useState } from 'react';
+import Boton from './Boton';
 
 const ModalConfirmacion = ({ titulo, mensaje, textoConfirmar = 'Confirmar', varianteConfirmar = 'peligro', confirmar, cancelar }) => {
-  const [procesando, setProcesando] = useState(false)
+  const [procesando, setProcesando] = useState(false);
+  const tituloId = useId();
 
   const aceptar = async () => {
-    setProcesando(true)
-    await confirmar()
-    setProcesando(false)
-  }
+    setProcesando(true);
+    await confirmar();
+    setProcesando(false);
+  };
 
   return (
     <div className="modal" onClick={procesando ? undefined : cancelar}>
@@ -16,10 +17,10 @@ const ModalConfirmacion = ({ titulo, mensaje, textoConfirmar = 'Confirmar', vari
         className="modal__contenido"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="modal-confirmacion-titulo"
+        aria-labelledby={tituloId}
         onClick={e => e.stopPropagation()}
       >
-        <h3 id="modal-confirmacion-titulo">{titulo}</h3>
+        <h3 id={tituloId}>{titulo}</h3>
         <p className="modal__mensaje">{mensaje}</p>
         <div className="modal__acciones">
           <Boton variante={varianteConfirmar} onClick={aceptar} disabled={procesando}>
@@ -29,7 +30,7 @@ const ModalConfirmacion = ({ titulo, mensaje, textoConfirmar = 'Confirmar', vari
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ModalConfirmacion
+export default ModalConfirmacion;

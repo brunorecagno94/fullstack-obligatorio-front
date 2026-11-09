@@ -1,4 +1,4 @@
-import Tag from '../common/Tag'
+import Tag from '../common/Tag';
 
 const InfoJuego = ({ nombreJuego, descripcionJuego, categorias = [], imagenJuego }) => {
   const categoriasValidas = categorias.filter(categoria => categoria !== null);
@@ -15,13 +15,12 @@ const InfoJuego = ({ nombreJuego, descripcionJuego, categorias = [], imagenJuego
         ))}
       </div>
 
-      {/* Se muestra al pasar el mouse por la card (ver .juego:hover en App.css) */}
       <div className="juego__tooltip">
         <h3 className="juego__tooltip-nombre">{nombreJuego}</h3>
         <p className="juego__tooltip-descripcion">{descripcionJuego}</p>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default InfoJuego
+export default InfoJuego;

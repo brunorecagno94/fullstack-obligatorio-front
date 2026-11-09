@@ -1,5 +1,5 @@
-import LoginForm from '../../components/auth/LoginForm'
-import logo from '../../assets/logo-estim.png'
+import LoginForm from '../../components/auth/LoginForm';
+import logo from '../../assets/logo-estim.png';
 
 const PaginaLogin = () => {
   return (
@@ -12,7 +12,7 @@ const PaginaLogin = () => {
         <LoginForm />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PaginaLogin
+export default PaginaLogin;

@@ -1,28 +1,28 @@
-import { useState } from 'react'
-import Boton from '../common/Boton'
-import InfoJuego from './InfoJuego'
+import { useState } from 'react';
+import Boton from '../common/Boton';
+import InfoJuego from './InfoJuego';
 
 const JuegoUsuario = ({ _id, nombreJuego, descripcionJuego, precioJuego, monedaJuego, categorias, imagenJuego, comprado, limiteAlcanzado, comprar, monedaUsuario, convertirPrecio }) => {
-  const [precioConvertido, setPrecioConvertido] = useState(null)
-  const [convirtiendo, setConvirtiendo] = useState(false)
-  const [comprando, setComprando] = useState(false)
+  const [precioConvertido, setPrecioConvertido] = useState(null);
+  const [convirtiendo, setConvirtiendo] = useState(false);
+  const [comprando, setComprando] = useState(false);
   
   const manejarCompra = async () => {
-    setComprando(true)
-    await comprar(_id)
-    setComprando(false)
-  }
+    setComprando(true);
+    await comprar(_id);
+    setComprando(false);
+  };
 
-  let textoCompra = 'Comprar'
-  if (limiteAlcanzado) textoCompra = 'Límite alcanzado'
-  if (comprando) textoCompra = 'Comprando...'
+  let textoCompra = 'Comprar';
+  if (limiteAlcanzado) textoCompra = 'Límite alcanzado';
+  if (comprando) textoCompra = 'Comprando...';
 
   const verPrecio = async () => {
-    setConvirtiendo(true)
-    const precio = await convertirPrecio(_id)
-    setPrecioConvertido(precio)
-    setConvirtiendo(false)
-  }
+    setConvirtiendo(true);
+    const precio = await convertirPrecio(_id);
+    setPrecioConvertido(precio);
+    setConvirtiendo(false);
+  };
 
   return (
     <div className="juego">
@@ -52,7 +52,7 @@ const JuegoUsuario = ({ _id, nombreJuego, descripcionJuego, precioJuego, monedaJ
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default JuegoUsuario
+export default JuegoUsuario;

@@ -1,4 +1,4 @@
-import Categoria from './Categoria'
+import Categoria from './Categoria';
 
 const ListaCategorias = ({ categorias, editar, eliminar }) => {
   return (
@@ -12,7 +12,7 @@ const ListaCategorias = ({ categorias, editar, eliminar }) => {
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default ListaCategorias
+export default ListaCategorias;

@@ -1,5 +1,5 @@
 const EncabezadoPerfil = ({ nombreUsuario, plan }) => {
-  const esPremium = plan === 'premium'
+  const esPremium = plan === 'premium';
 
   return (
     <section className="perfil-encabezado">
@@ -13,7 +13,7 @@ const EncabezadoPerfil = ({ nombreUsuario, plan }) => {
         </span>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default EncabezadoPerfil
+export default EncabezadoPerfil;

@@ -1,4 +1,4 @@
-import JuegoAdmin from './JuegoAdmin'
+import JuegoAdmin from './JuegoAdmin';
 
 const ListaJuegosAdmin = ({ juegos, eliminar }) => {
   return (
@@ -7,7 +7,7 @@ const ListaJuegosAdmin = ({ juegos, eliminar }) => {
         <JuegoAdmin key={juego._id} {...juego} eliminar={eliminar} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default ListaJuegosAdmin
+export default ListaJuegosAdmin;

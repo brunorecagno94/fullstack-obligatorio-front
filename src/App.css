@@ -1,4 +1,3 @@
-/* ===== Menú superior ===== */
 .menu {
   display: flex;
   align-items: center;
@@ -35,7 +34,6 @@
   font-size: 14px;
 }
 
-/* Contenedor de links, usuario y cerrar sesión: en escritorio se ve en línea */
 .menu__contenido {
   display: flex;
   align-items: center;
@@ -43,7 +41,6 @@
   flex: 1;
 }
 
-/* El botón hamburguesa solo existe en mobile */
 .menu__hamburguesa {
   display: none;
   margin-left: auto;
@@ -65,7 +62,6 @@
   margin-left: auto;
 }
 
-/* ===== Botones ===== */
 .btn {
   padding: 8px 16px;
   border: none;
@@ -98,12 +94,9 @@
   background: var(--rojo);
 }
 
-/* ===== Listado de juegos ===== */
 .lista-juegos {
   display: grid;
   gap: 16px;
-  /* Columnas de al menos 200px, pero nunca más de 5 por fila:
-     cada columna ocupa como mínimo 1/5 del ancho (descontando los 4 espacios entre columnas) */
   grid-template-columns: repeat(auto-fill, minmax(max(200px, calc((100% - 4 * 16px) / 5)), 1fr));
   margin: 24px 0;
 }
@@ -156,8 +149,6 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  /* margin-top: auto empuja las acciones al fondo de la card,
-     así quedan alineadas aunque las cards tengan distinta cantidad de etiquetas */
   margin-top: auto;
   padding: 0 12px 12px;
 }
@@ -177,7 +168,6 @@
   border-radius: 0.5rem;
 }
 
-/* ===== Paginador ===== */
 .paginador {
   display: flex;
   align-items: center;
@@ -198,7 +188,6 @@
   font-size: 14px;
 }
 
-/* ===== Campos de formulario (filtros, login, registro, formularios del admin) ===== */
 .form__group {
   display: flex;
   flex-direction: column;
@@ -239,7 +228,6 @@
   font-size: 13px;
 }
 
-/* ===== Filtros ===== */
 .filtros {
   padding: 16px;
   border-radius: 0.5rem;
@@ -257,7 +245,7 @@
   gap: 12px;
 }
 
-.filtros__form #filtroNombre {
+.filtros__form input[type="text"] {
   min-width: 220px;
 }
 
@@ -274,7 +262,6 @@
   margin: 12px 0 0;
 }
 
-/* En pantallas chicas los filtros se vuelven un desplegable */
 @media (max-width: 768px) {
   .filtros__toggle {
     display: block;
@@ -295,7 +282,7 @@
     display: flex;
   }
 
-  .filtros__form #filtroNombre,
+  .filtros__form input[type="text"],
   .filtros__form input[type="number"] {
     min-width: 0;
     width: 100%;
@@ -306,7 +293,6 @@
   }
 }
 
-/* ===== Botón "Agregar juego" (admin) ===== */
 .pagina-juegos__agregar {
   display: inline-block;
   margin-bottom: 16px;
@@ -318,7 +304,6 @@
   filter: brightness(1.15);
 }
 
-/* ===== Página de categorías ===== */
 .pagina-categorias h2 {
   margin: 0 0 16px;
   color: #fff;
@@ -327,7 +312,6 @@
 .lista-categorias {
   display: grid;
   gap: 12px;
-  /* Igual que la grilla de juegos, pero con un máximo de 8 por fila */
   grid-template-columns: repeat(auto-fill, minmax(max(150px, calc((100% - 7 * 12px) / 8)), 1fr));
   margin: 16px 0 24px;
 }
@@ -367,7 +351,6 @@
   background: var(--fondo-card);
 }
 
-/* ===== Login (y registro, cuando use las mismas clases) ===== */
 .auth {
   min-height: 100vh;
   display: flex;
@@ -428,7 +411,6 @@
   font-size: 14px;
 }
 
-/* ===== Menú en mobile (hamburguesa) ===== */
 @media (max-width: 768px) {
   .menu {
     position: relative;
@@ -472,7 +454,6 @@
   }
 }
 
-/* ===== Footer ===== */
 .footer {
   display: flex;
   align-items: center;
@@ -501,7 +482,6 @@
   }
 }
 
-/* ===== Tooltip de las cards de juegos ===== */
 .juego__tooltip {
   position: absolute;
   top: 8px;
@@ -513,11 +493,9 @@
   border-radius: 0.5rem;
   background: rgba(14, 20, 27, 0.96);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
-  /* Oculto por defecto: aparece con un fundido al pasar el mouse */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.15s, visibility 0.15s;
-  /* Deja pasar los clics a la card, así el tooltip no tapa el botón de comprar */
   pointer-events: none;
 }
 
@@ -540,7 +518,6 @@
   line-height: 1.4;
 }
 
-/* Botón de compra con el texto a la izquierda y el precio a la derecha */
 .juego__comprar {
   display: flex;
   justify-content: space-between;
@@ -551,7 +528,6 @@
   font-weight: 700;
 }
 
-/* Precio convertido a la moneda del usuario, debajo del botón de compra */
 .juego__conversion {
   padding: 0 12px 12px;
   margin-top: -4px;
@@ -560,7 +536,6 @@
   color: var(--texto-suave);
 }
 
-/* Botón con aspecto de link (sin fondo ni relleno) */
 .btn-enlace {
   padding: 0;
   background: none;
@@ -577,7 +552,6 @@
   color: var(--texto-suave);
 }
 
-/* ===== Modales (confirmación y categorías) ===== */
 .modal {
   position: fixed;
   inset: 0;
@@ -623,7 +597,6 @@
   gap: 8px;
 }
 
-/* ===== Formulario de juego: sección de imagen ===== */
 .formulario-juego__imagen-seccion {
   gap: 10px;
 }
@@ -672,7 +645,6 @@
   font-weight: 600;
 }
 
-/* Oculta el input de archivo nativo sin sacarlo del flujo de accesibilidad */
 .formulario-juego__archivo {
   position: absolute;
   width: 1px;
@@ -706,7 +678,6 @@
   max-width: 260px;
 }
 
-/* ===== Botón de IA con ícono de chispas ===== */
 .boton-ia {
   display: inline-flex;
   align-items: center;
@@ -720,7 +691,6 @@
   flex-shrink: 0;
 }
 
-/* ===== Mi perfil ===== */
 .pagina-perfil {
   display: flex;
   flex-direction: column;
@@ -799,7 +769,6 @@
   color: #fff;
 }
 
-/* Informe de uso */
 .barra-uso {
   height: 12px;
   overflow: hidden;
@@ -865,7 +834,6 @@
   font-weight: 600;
 }
 
-/* Acceso a la biblioteca */
 .acceso-biblioteca {
   display: flex;
   flex-direction: column;
@@ -876,7 +844,6 @@
   align-self: flex-start;
 }
 
-/* Cambio de plan */
 .cambio-plan__bajada {
   color: var(--texto-suave);
 }
@@ -940,12 +907,10 @@
   }
 }
 
-/* ===== Registro ===== */
 .auth__tarjeta--ancha {
   max-width: 560px;
 }
 
-/* Dos campos lado a lado (contraseña/confirmación, nombre/apellido, fecha/país) */
 .auth__fila {
   display: grid;
   grid-template-columns: 1fr 1fr;

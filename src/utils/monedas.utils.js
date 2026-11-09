@@ -20,6 +20,6 @@ const monedasPorPais = {
   'Reino Unido': 'GBP',
   'Japón': 'JPY',
   'China': 'CNY'
-}
+};
 
-export const obtenerMoneda = (pais) => monedasPorPais[pais] || 'USD'
+export const obtenerMoneda = (pais) => monedasPorPais[pais] || 'USD';

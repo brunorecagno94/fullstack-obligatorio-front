@@ -1,4 +1,4 @@
-import logo from '../../assets/logo-estim.png'
+import logo from '../../assets/logo-estim.png';
 
 const Footer = () => {
   return (
@@ -9,7 +9,7 @@ const Footer = () => {
         <p>Obligatorio de Desarrollo Full Stack · Universidad ORT Uruguay</p>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

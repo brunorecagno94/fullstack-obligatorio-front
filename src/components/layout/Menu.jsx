@@ -1,23 +1,20 @@
-import { useState } from 'react'
-import { Link } from 'react-router'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
-import { cerrarSesion } from '../../features/usuario.slice'
-import Boton from '../common/Boton'
-import logo from '../../assets/logo-estim.png'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { cerrarSesion } from '../../features/usuario.slice';
+import Boton from '../common/Boton';
+import logo from '../../assets/logo-estim.png';
 
 const Menu = () => {
-  const usuario = useSelector(state => state.usuario.usuario)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const [abierto, setAbierto] = useState(false)
+  const usuario = useSelector(state => state.usuario.usuario);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [abierto, setAbierto] = useState(false);
 
   const logout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('usuario')
-    dispatch(cerrarSesion())
-    navigate('/login')
-  }
+    dispatch(cerrarSesion());
+    navigate('/login');
+  };
 
   return (
     <header className="menu">
@@ -35,7 +32,6 @@ const Menu = () => {
         {abierto ? '✕' : '☰'}
       </button>
 
-      {/* Cualquier clic adentro (un link o cerrar sesión) cierra el menú en mobile */}
       <div
         className={abierto ? 'menu__contenido menu__contenido--abierto' : 'menu__contenido'}
         onClick={() => setAbierto(false)}
@@ -56,7 +52,7 @@ const Menu = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;

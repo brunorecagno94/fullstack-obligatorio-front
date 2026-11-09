@@ -1,5 +1,5 @@
-import Boton from '../common/Boton'
-import InfoJuego from '../juegos/InfoJuego'
+import Boton from '../common/Boton';
+import InfoJuego from '../juegos/InfoJuego';
 
 const JuegoBiblioteca = ({ _id, nombreJuego, descripcionJuego, categorias, imagenJuego, quitar }) => {
   return (
@@ -16,7 +16,7 @@ const JuegoBiblioteca = ({ _id, nombreJuego, descripcionJuego, categorias, image
         </Boton>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default JuegoBiblioteca
+export default JuegoBiblioteca;

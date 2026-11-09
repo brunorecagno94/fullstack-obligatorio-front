@@ -1,21 +1,21 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router'
-import { Provider } from 'react-redux'
-import { ToastContainer } from 'react-toastify'
-import store from './store/store'
-import ContainerPage from './pages/ContainerPage'
-import PaginaBiblioteca from './pages/biblioteca/PaginaBiblioteca'
-import PaginaCategorias from './pages/categorias/PaginaCategorias'
-import PaginaLogin from './pages/auth/PaginaLogin'
-import PaginaJuegos from './pages/juegos/PaginaJuegos'
-import PaginaRegistro from './pages/auth/PaginaRegistro'
-import PaginaUsuario from './pages/usuario/PaginaUsuario'
-import PaginaCrearJuego from './pages/juegos/PaginaCrearJuego'
-import PaginaEditarJuego from './pages/juegos/PaginaEditarJuego'
-import PaginaNoEncontrada from './pages/PaginaNoEncontrada'
-import RutaProtegida from './app/guards/RutaProtegida'
-import RutaPublica from './app/guards/RutaPublica'
-import './App.css'
-import 'react-toastify/dist/ReactToastify.css'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import store from './store/store';
+import ContainerPage from './pages/ContainerPage';
+import PaginaBiblioteca from './pages/biblioteca/PaginaBiblioteca';
+import PaginaCategorias from './pages/categorias/PaginaCategorias';
+import PaginaLogin from './pages/auth/PaginaLogin';
+import PaginaJuegos from './pages/juegos/PaginaJuegos';
+import PaginaRegistro from './pages/auth/PaginaRegistro';
+import PaginaUsuario from './pages/usuario/PaginaUsuario';
+import PaginaCrearJuego from './pages/juegos/PaginaCrearJuego';
+import PaginaEditarJuego from './pages/juegos/PaginaEditarJuego';
+import PaginaNoEncontrada from './pages/PaginaNoEncontrada';
+import RutaProtegida from './app/guards/RutaProtegida';
+import RutaPublica from './app/guards/RutaPublica';
+import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -49,7 +49,7 @@ function App() {
       </BrowserRouter>
       <ToastContainer />
     </Provider>
-  )
+  );
 }
 
-export default App
+export default App;

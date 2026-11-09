@@ -15,8 +15,6 @@ const opcionesOrdenBiblioteca = [
 ];
 
 const PaginaBiblioteca = () => {
-  const token = useSelector(state => state.usuario.token);
-  const usuario = useSelector(state => state.usuario.usuario);
   const categorias = useSelector(state => state.categoria.lista);
   const dispatch = useDispatch();
   const [juegos, setJuegos] = useState([]);
@@ -26,11 +24,7 @@ const PaginaBiblioteca = () => {
   const [pagina, setPagina] = useState(1);
 
   useEffect(() => {
-    api.get('/usuarios/compras', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+    api.get('/usuarios/compras')
       .then(r => {
         setJuegos(r.data.juegosComprados);
         setCargado(true);
@@ -38,8 +32,8 @@ const PaginaBiblioteca = () => {
       .catch(error => {
         setCargado(true);
         if (error.response?.status !== 401) toast.error('No se pudo cargar tu biblioteca');
-      })
-  }, [token]);
+      });
+  }, []);
 
   let filtrados = juegos.filter(juego =>
     (!filtros.nombre || juego.nombreJuego.toLowerCase().includes(filtros.nombre.toLowerCase())) &&
@@ -56,32 +50,24 @@ const PaginaBiblioteca = () => {
   const aplicarFiltros = (nuevosFiltros) => {
     setFiltros(nuevosFiltros);
     setPagina(1);
-  }
+  };
 
   const quitar = (idJuego, nombre) => {
     setJuegoAQuitar({ _id: idJuego, nombre });
-  }
+  };
 
   const confirmarQuitar = async () => {
     const idJuego = juegoAQuitar._id;
     try {
-      const res = await api.delete(`/usuarios/compras/${idJuego}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      const res = await api.delete(`/usuarios/compras/${idJuego}`);;
       setJuegos(juegos.filter(juego => juego._id !== idJuego));
       dispatch(quitarJuego(idJuego));
-      localStorage.setItem('usuario', JSON.stringify({
-        ...usuario,
-        juegosComprados: usuario.juegosComprados.filter(id => id !== idJuego)
-      }));
       toast.success(res.data.message);
     } catch (error) {
       toast.error(error.response?.data?.message || 'No se pudo quitar el juego');
     }
     setJuegoAQuitar(null);
-  }
+  };
 
   return (
     <div className="pagina-biblioteca">

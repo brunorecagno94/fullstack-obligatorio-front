@@ -1,4 +1,4 @@
-import Boton from './Boton'
+import Boton from './Boton';
 
 const Paginador = ({ pagina, totalPaginas, cambiarPagina }) => {
   return (
@@ -19,7 +19,7 @@ const Paginador = ({ pagina, totalPaginas, cambiarPagina }) => {
         Siguiente
       </Boton>
     </div>
-  )
-}
+  );
+};
 
-export default Paginador
+export default Paginador;

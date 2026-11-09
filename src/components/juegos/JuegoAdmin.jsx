@@ -1,6 +1,6 @@
-import { Link } from 'react-router'
-import Boton from '../common/Boton'
-import InfoJuego from './InfoJuego'
+import { Link } from 'react-router';
+import Boton from '../common/Boton';
+import InfoJuego from './InfoJuego';
 
 const JuegoAdmin = ({ _id, nombreJuego, descripcionJuego, categorias, imagenJuego, eliminar }) => {
   return (
@@ -16,7 +16,7 @@ const JuegoAdmin = ({ _id, nombreJuego, descripcionJuego, categorias, imagenJueg
         <Boton variante="peligro" onClick={() => eliminar(_id, nombreJuego)}>Eliminar</Boton>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default JuegoAdmin
+export default JuegoAdmin;

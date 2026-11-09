@@ -1,4 +1,4 @@
-import JuegoBiblioteca from "./JuegoBiblioteca"
+import JuegoBiblioteca from './JuegoBiblioteca';
 
 const ListaBiblioteca = ({ juegos, quitar }) => {
   return (
@@ -7,7 +7,7 @@ const ListaBiblioteca = ({ juegos, quitar }) => {
         <JuegoBiblioteca key={juego._id} {...juego} quitar={quitar} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default ListaBiblioteca
+export default ListaBiblioteca;

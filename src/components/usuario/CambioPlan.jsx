@@ -1,4 +1,4 @@
-import Boton from '../common/Boton'
+import Boton from '../common/Boton';
 
 const CambioPlan = ({ pasarAPremium }) => {
   return (
@@ -27,7 +27,7 @@ const CambioPlan = ({ pasarAPremium }) => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default CambioPlan
+export default CambioPlan;

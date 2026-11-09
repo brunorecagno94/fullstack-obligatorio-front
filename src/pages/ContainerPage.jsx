@@ -1,27 +1,22 @@
-import { useEffect } from 'react'
-import { Outlet } from 'react-router'
-import { useSelector, useDispatch } from 'react-redux'
-import { toast } from 'react-toastify'
-import api from '../api/api'
-import { setCategorias } from '../features/categoria.slice'
-import Menu from '../components/layout/Menu'
-import Footer from '../components/layout/Footer'
+import { useEffect } from 'react';
+import { Outlet } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import api from '../api/api';
+import { setCategorias } from '../features/categoria.slice';
+import Menu from '../components/layout/Menu';
+import Footer from '../components/layout/Footer';
 
 const ContainerPage = () => {
-  const token = useSelector(state => state.usuario.token)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    api.get('/categorias', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+    api.get('/categorias')
       .then(r => dispatch(setCategorias(r.data)))
       .catch(error => {
-        if (error.response?.status !== 401) toast.error('No se pudieron cargar las categorías')
-      })
-  }, [token, dispatch])
+        if (error.response?.status !== 401) toast.error('No se pudieron cargar las categorías');
+      });
+  }, [dispatch]);
 
   return (
     <>
@@ -31,7 +26,7 @@ const ContainerPage = () => {
       </main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default ContainerPage
+export default ContainerPage;

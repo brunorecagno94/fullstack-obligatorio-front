@@ -4,7 +4,7 @@ const Loader = ({ texto = 'Cargando...' }) => {
       <div className="loader__spinner"></div>
       <p>{texto}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

@@ -6,13 +6,13 @@ import {
   Title,
   Tooltip,
   Legend
-} from 'chart.js'
-import { Bar } from 'react-chartjs-2'
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const colorTexto = '#c7d5e0'
-const colorGrilla = 'rgba(255, 255, 255, 0.08)'
+const colorTexto = '#c7d5e0';
+const colorGrilla = 'rgba(255, 255, 255, 0.08)';
 
 const opciones = {
   indexAxis: 'y',
@@ -40,7 +40,7 @@ const opciones = {
       grid: { display: false }
     }
   }
-}
+};
 
 const GraficoCategorias = ({ etiquetas, cantidades }) => {
   const datos = {
@@ -53,15 +53,15 @@ const GraficoCategorias = ({ etiquetas, cantidades }) => {
         borderRadius: 4
       }
     ]
-  }
+  };
 
-  const alto = etiquetas.length * 32 + 80
+  const alto = etiquetas.length * 32 + 80;
 
   return (
     <div className="grafico-categorias" style={{ height: alto }}>
       <Bar options={opciones} data={datos} />
     </div>
-  )
-}
+  );
+};
 
-export default GraficoCategorias
+export default GraficoCategorias;

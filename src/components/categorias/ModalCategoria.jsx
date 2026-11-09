@@ -1,8 +1,8 @@
-import { useForm } from 'react-hook-form'
-import { joiResolver } from '@hookform/resolvers/joi'
-import { categoriaSchema } from '../../validators/categorias.validators'
-import Input from '../common/Input'
-import Boton from '../common/Boton'
+import { useForm } from 'react-hook-form';
+import { joiResolver } from '@hookform/resolvers/joi';
+import { categoriaSchema } from '../../validators/categorias.validators';
+import Input from '../common/Input';
+import Boton from '../common/Boton';
 
 const ModalCategoria = ({ categoria, guardar, cerrar }) => {
   const { register, handleSubmit, formState: { errors, isValid, isSubmitting } } =
@@ -10,7 +10,7 @@ const ModalCategoria = ({ categoria, guardar, cerrar }) => {
       resolver: joiResolver(categoriaSchema),
       mode: 'onChange',
       defaultValues: { nombreCategoria: categoria ? categoria.nombreCategoria : '' }
-    })
+    });
 
   return (
     <div className="modal">
@@ -19,7 +19,6 @@ const ModalCategoria = ({ categoria, guardar, cerrar }) => {
         <form onSubmit={handleSubmit(guardar)}>
           <Input
             label="Nombre:"
-            id="categoriaNombre"
             type="text"
             {...register('nombreCategoria')}
             error={errors.nombreCategoria?.message}
@@ -33,7 +32,7 @@ const ModalCategoria = ({ categoria, guardar, cerrar }) => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ModalCategoria
+export default ModalCategoria;

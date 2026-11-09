@@ -1,4 +1,4 @@
-const LIMITE_PLUS = 4
+const LIMITE_PLUS = 4;
 
 const InformeCuenta = ({ plan, cantidad }) => {
   if (plan === 'premium') {
@@ -13,19 +13,19 @@ const InformeCuenta = ({ plan, cantidad }) => {
         </div>
         <span className="informe-uso__sin-limite">∞ Sin límite de compras</span>
       </section>
-    )
+    );
   }
 
-  const porcentaje = Math.round((cantidad / LIMITE_PLUS) * 100)
-  const restantes = LIMITE_PLUS - cantidad
+  const porcentaje = Math.round((cantidad / LIMITE_PLUS) * 100);
+  const restantes = LIMITE_PLUS - cantidad;
 
-  let nivel = 'normal'
-  if (cantidad >= LIMITE_PLUS) nivel = 'lleno'
-  else if (cantidad >= LIMITE_PLUS - 1) nivel = 'alerta'
+  let nivel = 'normal';
+  if (cantidad >= LIMITE_PLUS) nivel = 'lleno';
+  else if (cantidad >= LIMITE_PLUS - 1) nivel = 'alerta';
 
-  let mensaje = `Te quedan ${restantes} compras`
-  if (restantes === 1) mensaje = 'Te queda 1 compra'
-  if (restantes <= 0) mensaje = 'Llegaste al límite de tu plan'
+  let mensaje = `Te quedan ${restantes} compras`;
+  if (restantes === 1) mensaje = 'Te queda 1 compra';
+  if (restantes <= 0) mensaje = 'Llegaste al límite de tu plan';
 
   return (
     <section className="panel-perfil informe-uso">
@@ -44,7 +44,7 @@ const InformeCuenta = ({ plan, cantidad }) => {
       </div>
       <p className={`informe-uso__mensaje informe-uso__mensaje--${nivel}`}>{mensaje}</p>
     </section>
-  )
-}
+  );
+};
 
-export default InformeCuenta
+export default InformeCuenta;

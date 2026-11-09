@@ -1,4 +1,4 @@
-import Boton from '../common/Boton'
+import Boton from '../common/Boton';
 
 const Categoria = ({ _id, nombreCategoria, editar, eliminar }) => {
   return (
@@ -9,7 +9,7 @@ const Categoria = ({ _id, nombreCategoria, editar, eliminar }) => {
         <Boton variante="peligro" onClick={() => eliminar(_id, nombreCategoria)}>Eliminar</Boton>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Categoria
+export default Categoria;

@@ -1,5 +1,7 @@
-const Input = ({ label, error, id, ...props }) => {
-  const inputId = id || props.name;
+import { useId } from 'react';
+
+const Input = ({ label, error, ...props }) => {
+  const inputId = useId();
 
   return (
     <div className="form__group">

@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import { Link } from 'react-router'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
-import api from '../../api/api'
-import { cambiarPlan } from '../../features/usuario.slice'
-import EncabezadoPerfil from '../../components/usuario/EncabezadoPerfil'
-import InformeCuenta from '../../components/usuario/InformeCuenta'
-import CambioPlan from '../../components/usuario/CambioPlan'
-import ModalConfirmacion from '../../components/common/ModalConfirmacion'
+import { useState } from 'react';
+import { Link } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import api from '../../api/api';
+import { cambiarPlan } from '../../features/usuario.slice';
+import EncabezadoPerfil from '../../components/usuario/EncabezadoPerfil';
+import InformeCuenta from '../../components/usuario/InformeCuenta';
+import CambioPlan from '../../components/usuario/CambioPlan';
+import ModalConfirmacion from '../../components/common/ModalConfirmacion';
 
 const PaginaUsuario = () => {
-  const token = useSelector(state => state.usuario.token)
-  const usuario = useSelector(state => state.usuario.usuario)
-  const dispatch = useDispatch()
-  const [confirmandoPlan, setConfirmandoPlan] = useState(false)
+  const usuario = useSelector(state => state.usuario.usuario);
+  const dispatch = useDispatch();
+  const [confirmandoPlan, setConfirmandoPlan] = useState(false);
 
-  const cantidadJuegos = usuario.juegosComprados.length
+  const cantidadJuegos = usuario.juegosComprados.length;
 
   const pasarAPremium = async () => {
     try {
-      const res = await api.patch('/usuarios/upgrade', {}, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-      dispatch(cambiarPlan('premium'))
-      localStorage.setItem('usuario', JSON.stringify({ ...usuario, planUsuario: 'premium' }))
-      toast.success(res.data.message)
+      const res = await api.patch('/usuarios/upgrade');
+      dispatch(cambiarPlan('premium'));
+      toast.success(res.data.message);
     } catch (error) {
-      toast.error(error.response?.data?.message || 'No se pudo cambiar el plan')
+      toast.error(error.response?.data?.message || 'No se pudo cambiar el plan');
     }
-    setConfirmandoPlan(false)
-  }
+    setConfirmandoPlan(false);
+  };
 
   return (
     <div className="pagina-perfil">
@@ -62,7 +58,7 @@ const PaginaUsuario = () => {
         />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default PaginaUsuario
+export default PaginaUsuario;

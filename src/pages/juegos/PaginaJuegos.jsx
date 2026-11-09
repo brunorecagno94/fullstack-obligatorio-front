@@ -14,7 +14,6 @@ import { obtenerMoneda } from '../../utils/monedas.utils';
 
 const PaginaJuegos = () => {
   const dispatch = useDispatch();
-  const token = useSelector(state => state.usuario.token);
   const usuario = useSelector(state => state.usuario.usuario);
   const categorias = useSelector(state => state.categoria.lista);
   const [juegos, setJuegos] = useState([]);
@@ -29,10 +28,7 @@ const PaginaJuegos = () => {
     let vigente = true;
 
     api.get('/juegos', {
-      params: { page: pagina, ...filtros },
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+      params: { page: pagina, ...filtros }
     })
       .then(r => {
         if (!vigente) return;
@@ -48,66 +44,55 @@ const PaginaJuegos = () => {
         if (!vigente) return;
         setCargando(false);
         if (error.response?.status !== 401) toast.error('No se pudieron cargar los juegos');
-      })
+      });
 
     return () => {
       vigente = false;
     };
-  }, [pagina, filtros, token, recargas]);
+  }, [pagina, filtros, recargas]);
 
   const aplicarFiltros = (nuevosFiltros) => {
     setCargando(true);
     setFiltros(nuevosFiltros);
     setPagina(1);
-  }
+  };
 
   const cambiarPagina = (nuevaPagina) => {
     setCargando(true);
     setPagina(nuevaPagina);
-  }
+  };
 
   const comprar = async (idJuego) => {
     try {
-      const res = await api.patch(`/usuarios/compras/${idJuego}`, {}, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      const res = await api.patch(`/usuarios/compras/${idJuego}`);;
       dispatch(comprarJuego(idJuego));
-      localStorage.setItem('usuario', JSON.stringify({
-        ...usuario,
-        juegosComprados: [...usuario.juegosComprados, idJuego]
-      }));
       toast.success(res.data.message);
     } catch (error) {
       toast.error(error.response?.data?.message || 'No se pudo realizar la compra');
     }
-  }
+  };
 
   const monedaUsuario = obtenerMoneda(usuario.pais);
 
   const convertirPrecio = async (idJuego) => {
     try {
       const res = await api.get(`/juegos/${idJuego}/convertir-precio`, {
-        params: { moneda: monedaUsuario },
-        headers: { 'Authorization': `Bearer ${token}` }
+        params: { moneda: monedaUsuario }
       });
       return res.data.precioConvertido;
     } catch (error) {
       toast.error(error.response?.data?.message || 'No se pudo convertir el precio');
       return null;
     }
-  }
+  };
 
   const eliminar = (idJuego, nombre) => {
     setJuegoAEliminar({ _id: idJuego, nombre });
-  }
+  };
 
   const confirmarEliminacion = async () => {
     try {
-      const res = await api.delete(`/juegos/${juegoAEliminar._id}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+      const res = await api.delete(`/juegos/${juegoAEliminar._id}`);
       setCargando(true);
       setRecargas(recargas + 1);
       toast.success(res.data.message);
@@ -115,7 +100,7 @@ const PaginaJuegos = () => {
       toast.error(error.response?.data?.message || 'No se pudo eliminar el juego');
     }
     setJuegoAEliminar(null);
-  }
+  };
   
   const limiteAlcanzado = usuario.planUsuario === 'plus' && usuario.juegosComprados.length >= 4;
 

@@ -1,28 +1,28 @@
-import { useState } from "react";
-import Input from "../common/Input";
-import Select from "../common/Select";
-import Boton from "../common/Boton";
+import { useState } from 'react';
+import Input from '../common/Input';
+import Select from '../common/Select';
+import Boton from '../common/Boton';
 
 const opcionesOrdenTienda = [
-  { valor: "nombre", texto: "Nombre" },
-  { valor: "precio", texto: "Precio" }
+  { valor: 'nombre', texto: 'Nombre' },
+  { valor: 'precio', texto: 'Precio' }
 ];
 
 const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden = opcionesOrdenTienda }) => {
-  const [nombre, setNombre] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [precioMin, setPrecioMin] = useState("");
-  const [precioMax, setPrecioMax] = useState("");
-  const [orden, setOrden] = useState("");
+  const [nombre, setNombre] = useState('');
+  const [categoria, setCategoria] = useState('');
+  const [precioMin, setPrecioMin] = useState('');
+  const [precioMax, setPrecioMax] = useState('');
+  const [orden, setOrden] = useState('');
   const [abierto, setAbierto] = useState(false);
 
-  const hayCriterio = nombre.trim() !== "" || categoria !== "" || precioMin !== "" || precioMax !== "" || orden !== "";
-  const precioNoPositivo = (precioMin !== "" && Number(precioMin) <= 0) || (precioMax !== "" && Number(precioMax) <= 0);
-  const rangoInvalido = precioMin !== "" && precioMax !== "" && Number(precioMin) > Number(precioMax);
+  const hayCriterio = nombre.trim() !== '' || categoria !== '' || precioMin !== '' || precioMax !== '' || orden !== '';
+  const precioNoPositivo = (precioMin !== '' && Number(precioMin) <= 0) || (precioMax !== '' && Number(precioMax) <= 0);
+  const rangoInvalido = precioMin !== '' && precioMax !== '' && Number(precioMin) > Number(precioMax);
 
-  let error = "";
-  if (precioNoPositivo) error = "Los precios deben ser mayores a 0";
-  else if (rangoInvalido) error = "El precio mínimo no puede ser mayor al máximo";
+  let error = '';
+  if (precioNoPositivo) error = 'Los precios deben ser mayores a 0';
+  else if (rangoInvalido) error = 'El precio mínimo no puede ser mayor al máximo';
 
   const opcionesCategorias = categorias.map(categoria => ({
     valor: categoria._id,
@@ -32,23 +32,23 @@ const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden =
   const filtrar = () => {
     const filtros = {};
 
-    if (nombre.trim() !== "") filtros.nombre = nombre.trim();
-    if (categoria !== "") filtros.categoria = categoria;
-    if (precioMin !== "") filtros.precioMin = Number(precioMin);
-    if (precioMax !== "") filtros.precioMax = Number(precioMax);
-    if (orden !== "") filtros.ordenarPor = orden;
+    if (nombre.trim() !== '') filtros.nombre = nombre.trim();
+    if (categoria !== '') filtros.categoria = categoria;
+    if (precioMin !== '') filtros.precioMin = Number(precioMin);
+    if (precioMax !== '') filtros.precioMax = Number(precioMax);
+    if (orden !== '') filtros.ordenarPor = orden;
 
     aplicarFiltros(filtros);
-  }
+  };
 
   const limpiar = () => {
-    setNombre("");
-    setCategoria("");
-    setPrecioMin("");
-    setPrecioMax("");
-    setOrden("");
+    setNombre('');
+    setCategoria('');
+    setPrecioMin('');
+    setPrecioMax('');
+    setOrden('');
     aplicarFiltros({});
-  }
+  };
 
   return (
     <div className="filtros">
@@ -61,7 +61,6 @@ const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden =
         <Input
           label="Nombre:"
           type="text"
-          id="filtroNombre"
           placeholder="Buscar juego..."
           value={nombre}
           onChange={e => setNombre(e.target.value)}
@@ -69,7 +68,6 @@ const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden =
 
         <Select
           label="Categoría:"
-          id="filtroCategoria"
           placeholder="Todas"
           opciones={opcionesCategorias}
           value={categoria}
@@ -78,7 +76,6 @@ const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden =
 
         <Select
           label="Orden:"
-          id="filtroOrden"
           placeholder="Ninguno"
           opciones={opcionesOrden}
           value={orden}
@@ -90,7 +87,6 @@ const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden =
             <Input
               label="Precio mínimo:"
               type="number"
-              id="filtroPrecioMin"
               min="1"
               value={precioMin}
               onChange={e => setPrecioMin(e.target.value)}
@@ -99,7 +95,6 @@ const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden =
             <Input
               label="Precio máximo:"
               type="number"
-              id="filtroPrecioMax"
               min="1"
               value={precioMax}
               onChange={e => setPrecioMax(e.target.value)}
@@ -108,7 +103,7 @@ const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden =
         )}
 
         <div className="filtros__botones">
-          <Boton onClick={filtrar} disabled={!hayCriterio || error !== ""}>
+          <Boton onClick={filtrar} disabled={!hayCriterio || error !== ''}>
             Filtrar
           </Boton>
           <Boton variante="secundario" onClick={limpiar} disabled={!hayCriterio}>
@@ -116,9 +111,9 @@ const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden =
           </Boton>
         </div>
       </form>
-      {error !== "" && <p className="filtros__error">{error}</p>}
+      {error !== '' && <p className="filtros__error">{error}</p>}
     </div>
-  )
-}
+  );
+};
 
-export default Filtros
+export default Filtros;

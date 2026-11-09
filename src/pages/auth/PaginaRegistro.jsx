@@ -1,5 +1,5 @@
-import RegistroForm from '../../components/auth/RegistroForm'
-import logo from '../../assets/logo-estim.png'
+import RegistroForm from '../../components/auth/RegistroForm';
+import logo from '../../assets/logo-estim.png';
 
 const PaginaRegistro = () => {
   return (
@@ -12,7 +12,7 @@ const PaginaRegistro = () => {
         <RegistroForm />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PaginaRegistro
+export default PaginaRegistro;

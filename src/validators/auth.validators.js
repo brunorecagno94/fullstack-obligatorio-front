@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import Joi from 'joi';
 
 export const loginSchema = Joi.object({
   nombreUsuario: Joi.string().trim().required().messages({
@@ -7,7 +7,7 @@ export const loginSchema = Joi.object({
   password: Joi.string().required().messages({
     'string.empty': 'La contraseña es obligatoria'
   })
-})
+});
 
 
 export const registroSchema = Joi.object({
@@ -51,4 +51,4 @@ export const registroSchema = Joi.object({
     'string.base': 'El país debe ser una cadena de texto',
     'string.max': 'El país no puede tener más de {#limit} caracteres',
   }),
-})
+});

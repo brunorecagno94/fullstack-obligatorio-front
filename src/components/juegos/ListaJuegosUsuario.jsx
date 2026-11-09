@@ -1,6 +1,6 @@
-import JuegoUsuario from "./JuegoUsuario"
+import JuegoUsuario from './JuegoUsuario';
 
-const ListaJuegos = ({ juegos, juegosComprados, limiteAlcanzado, comprar, monedaUsuario, convertirPrecio }) => {
+const ListaJuegosUsuario = ({ juegos, juegosComprados, limiteAlcanzado, comprar, monedaUsuario, convertirPrecio }) => {
   return (
     <div className="lista-juegos">
       {juegos.map(juego => (
@@ -15,7 +15,7 @@ const ListaJuegos = ({ juegos, juegosComprados, limiteAlcanzado, comprar, moneda
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default ListaJuegos
+export default ListaJuegosUsuario;

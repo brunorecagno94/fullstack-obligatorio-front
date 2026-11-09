@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 
 const PaginaNoEncontrada = () => {
   return (
@@ -7,7 +7,7 @@ const PaginaNoEncontrada = () => {
       <p>La página que buscás no existe.</p>
       <Link to="/juegos">Volver a la tienda</Link>
     </div>
-  )
-}
+  );
+};
 
-export default PaginaNoEncontrada
+export default PaginaNoEncontrada;

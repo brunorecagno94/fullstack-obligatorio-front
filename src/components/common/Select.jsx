@@ -1,5 +1,7 @@
-const Select = ({ label, error, id, opciones = [], placeholder, ...props }) => {
-  const selectId = id || props.name;
+import { useId } from 'react';
+
+const Select = ({ label, error, opciones = [], placeholder, ...props }) => {
+  const selectId = useId();
 
   return (
     <div className="form__group">
