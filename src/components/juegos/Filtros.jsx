@@ -3,7 +3,12 @@ import Input from "../common/Input";
 import Select from "../common/Select";
 import Boton from "../common/Boton";
 
-const Filtros = ({ categorias, aplicarFiltros }) => {
+const opcionesOrdenTienda = [
+  { valor: "nombre", texto: "Nombre" },
+  { valor: "precio", texto: "Precio" }
+];
+
+const Filtros = ({ categorias, aplicarFiltros, conPrecio = true, opcionesOrden = opcionesOrdenTienda }) => {
   const [nombre, setNombre] = useState("");
   const [categoria, setCategoria] = useState("");
   const [precioMin, setPrecioMin] = useState("");
@@ -75,31 +80,32 @@ const Filtros = ({ categorias, aplicarFiltros }) => {
           label="Orden:"
           id="filtroOrden"
           placeholder="Ninguno"
-          opciones={[
-            { valor: "nombre", texto: "Nombre" },
-            { valor: "precio", texto: "Precio" }
-          ]}
+          opciones={opcionesOrden}
           value={orden}
           onChange={e => setOrden(e.target.value)}
         />
 
-        <Input
-          label="Precio mínimo:"
-          type="number"
-          id="filtroPrecioMin"
-          min="1"
-          value={precioMin}
-          onChange={e => setPrecioMin(e.target.value)}
-        />
+        {conPrecio && (
+          <>
+            <Input
+              label="Precio mínimo:"
+              type="number"
+              id="filtroPrecioMin"
+              min="1"
+              value={precioMin}
+              onChange={e => setPrecioMin(e.target.value)}
+            />
 
-        <Input
-          label="Precio máximo:"
-          type="number"
-          id="filtroPrecioMax"
-          min="1"
-          value={precioMax}
-          onChange={e => setPrecioMax(e.target.value)}
-        />
+            <Input
+              label="Precio máximo:"
+              type="number"
+              id="filtroPrecioMax"
+              min="1"
+              value={precioMax}
+              onChange={e => setPrecioMax(e.target.value)}
+            />
+          </>
+        )}
 
         <div className="filtros__botones">
           <Boton onClick={filtrar} disabled={!hayCriterio || error !== ""}>

@@ -1,5 +1,3 @@
-// Moneda de cada país, con el nombre tal cual aparece en el select del registro.
-// Si el usuario no eligió país, o su país no está en la lista, se usan dólares.
 const monedasPorPais = {
   'Uruguay': 'UYU',
   'Argentina': 'ARS',
