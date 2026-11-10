@@ -35,7 +35,7 @@ const FormularioJuego = ({ valoresIniciales, categorias, guardar, textoBoton, im
     setGenerando(true);
     const texto = await generarDescripcion();
     if (texto) {
-      setValue('descripcionJuego', texto.slice(0, 200), { shouldValidate: true, shouldDirty: true });
+      setValue('descripcionJuego', texto.slice(0, 200), { shouldValidate: true });
     }
     setGenerando(false);
   };
@@ -56,14 +56,7 @@ const FormularioJuego = ({ valoresIniciales, categorias, guardar, textoBoton, im
 
         {generarDescripcion && (
           <Boton variante="secundario" onClick={completarConIA} disabled={generando}>
-            <span className="boton-ia">
-              <svg className="boton-ia__icono" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M10 2c.6 5.4 2.6 7.4 8 8-5.4.6-7.4 2.6-8 8-.6-5.4-2.6-7.4-8-8 5.4-.6 7.4-2.6 8-8z" />
-                <path d="M18.5 1c.3 2.1.8 2.6 2.9 2.9-2.1.3-2.6.8-2.9 2.9-.3-2.1-.8-2.6-2.9-2.9 2.1-.3 2.6-.8 2.9-2.9z" />
-                <path d="M19 15c.25 1.6.65 2 2.25 2.25-1.6.25-2 .65-2.25 2.25-.25-1.6-.65-2-2.25-2.25 1.6-.25 2-.65 2.25-2.25z" />
-              </svg>
-              {generando ? 'Generando...' : 'Generar descripción con IA'}
-            </span>
+            {generando ? 'Generando...' : '✨ Generar descripción con IA'}
           </Boton>
         )}
       </div>

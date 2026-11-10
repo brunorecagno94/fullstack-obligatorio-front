@@ -25,8 +25,6 @@ const Menu = () => {
       <button
         type="button"
         className="menu__hamburguesa"
-        aria-label={abierto ? 'Cerrar menú' : 'Abrir menú'}
-        aria-expanded={abierto}
         onClick={() => setAbierto(!abierto)}
       >
         {abierto ? '✕' : '☰'}

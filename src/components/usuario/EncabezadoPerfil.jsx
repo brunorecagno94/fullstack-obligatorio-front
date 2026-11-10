@@ -3,7 +3,7 @@ const EncabezadoPerfil = ({ nombreUsuario, plan }) => {
 
   return (
     <section className="perfil-encabezado">
-      <div className="perfil-encabezado__avatar" aria-hidden="true">
+      <div className="perfil-encabezado__avatar">
         {nombreUsuario.charAt(0).toUpperCase()}
       </div>
       <div>

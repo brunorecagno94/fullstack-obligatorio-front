@@ -25,13 +25,10 @@ const PaginaJuegos = () => {
   const [juegoAEliminar, setJuegoAEliminar] = useState(null);
 
   useEffect(() => {
-    let vigente = true;
-
     api.get('/juegos', {
       params: { page: pagina, ...filtros }
     })
       .then(r => {
-        if (!vigente) return;
         if (r.data.juegos.length === 0 && pagina > 1) {
           setPagina(pagina - 1);
           return;
@@ -41,14 +38,9 @@ const PaginaJuegos = () => {
         setCargando(false);
       })
       .catch(error => {
-        if (!vigente) return;
         setCargando(false);
         if (error.response?.status !== 401) toast.error('No se pudieron cargar los juegos');
       });
-
-    return () => {
-      vigente = false;
-    };
   }, [pagina, filtros, recargas]);
 
   const aplicarFiltros = (nuevosFiltros) => {
@@ -64,7 +56,7 @@ const PaginaJuegos = () => {
 
   const comprar = async (idJuego) => {
     try {
-      const res = await api.patch(`/usuarios/compras/${idJuego}`);;
+      const res = await api.patch(`/usuarios/compras/${idJuego}`);
       dispatch(comprarJuego(idJuego));
       toast.success(res.data.message);
     } catch (error) {
@@ -102,7 +94,7 @@ const PaginaJuegos = () => {
     setJuegoAEliminar(null);
   };
   
-  const limiteAlcanzado = usuario.planUsuario === 'plus' && usuario.juegosComprados.length >= 4;
+  const limiteAlcanzado = usuario.planUsuario === 'plus' && usuario.juegosComprados.length === 4;
 
   return (
     <div className="pagina-juegos">

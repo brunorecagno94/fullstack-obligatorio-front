@@ -24,7 +24,7 @@ const PaginaCrearJuego = () => {
       if (imagenJuego?.[0]) {
         juego.imagenJuego = await subirImagen(imagenJuego[0]);
       }
-      const res = await api.post('/juegos', juego);;
+      const res = await api.post('/juegos', juego);
       toast.success(res.data.message);
       navigate('/juegos');
     } catch (error) {

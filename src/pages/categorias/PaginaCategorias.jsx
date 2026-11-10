@@ -82,7 +82,7 @@ const PaginaCategorias = () => {
   const confirmarEliminacion = async () => {
     const idCategoria = categoriaAEliminar._id;
     try {
-      const res = await api.delete(`/categorias/${idCategoria}`);;
+      const res = await api.delete(`/categorias/${idCategoria}`);
       dispatch(eliminarCategoria(idCategoria));
       toast.success(res.data.message);
     } catch (error) {

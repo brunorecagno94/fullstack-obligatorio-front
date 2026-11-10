@@ -28,7 +28,7 @@ const PaginaEditarJuego = () => {
       if (imagenJuego?.[0]) {
         cambios.imagenJuego = await subirImagen(imagenJuego[0]);
       }
-      const res = await api.patch(`/juegos/${id}`, cambios);;
+      const res = await api.patch(`/juegos/${id}`, cambios);
       toast.success(res.data.message);
       navigate('/juegos');
     } catch (error) {

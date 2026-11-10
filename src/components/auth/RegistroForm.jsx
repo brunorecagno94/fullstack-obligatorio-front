@@ -44,7 +44,7 @@ const RegistroForm = () => {
           .sort((a, b) => a.localeCompare(b));
         setPaises(nombres);
       })
-      .catch(() => setPaises([]));
+      .catch(() => toast.error('No se pudo cargar la lista de países'));
   }, []);
 
   return (

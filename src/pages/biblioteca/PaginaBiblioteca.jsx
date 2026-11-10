@@ -59,7 +59,7 @@ const PaginaBiblioteca = () => {
   const confirmarQuitar = async () => {
     const idJuego = juegoAQuitar._id;
     try {
-      const res = await api.delete(`/usuarios/compras/${idJuego}`);;
+      const res = await api.delete(`/usuarios/compras/${idJuego}`);
       setJuegos(juegos.filter(juego => juego._id !== idJuego));
       dispatch(quitarJuego(idJuego));
       toast.success(res.data.message);

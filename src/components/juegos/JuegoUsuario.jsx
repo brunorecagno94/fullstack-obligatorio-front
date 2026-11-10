@@ -45,7 +45,7 @@ const JuegoUsuario = ({ _id, nombreJuego, descripcionJuego, precioJuego, monedaJ
       {!comprado && monedaJuego !== monedaUsuario && (
         <div className="juego__conversion">
           {precioConvertido !== null
-            ? <span>≈ {monedaUsuario} {precioConvertido.toLocaleString('es-UY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+            ? <span>≈ {monedaUsuario} {precioConvertido}</span>
             : <Boton variante="enlace" onClick={verPrecio} disabled={convirtiendo}>
                 {convirtiendo ? 'Convirtiendo...' : `Ver precio en ${monedaUsuario}`}
               </Boton>}

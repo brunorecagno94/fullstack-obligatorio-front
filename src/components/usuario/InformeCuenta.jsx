@@ -33,13 +33,7 @@ const InformeCuenta = ({ plan, cantidad }) => {
       <p className="informe-uso__resumen">
         Usaste <strong>{cantidad} de {LIMITE_PLUS}</strong> compras ({porcentaje}%)
       </p>
-      <div
-        className="barra-uso"
-        role="progressbar"
-        aria-valuenow={cantidad}
-        aria-valuemin={0}
-        aria-valuemax={LIMITE_PLUS}
-      >
+      <div className="barra-uso">
         <div className={`barra-uso__relleno barra-uso__relleno--${nivel}`} style={{ width: `${porcentaje}%` }} />
       </div>
       <p className={`informe-uso__mensaje informe-uso__mensaje--${nivel}`}>{mensaje}</p>
