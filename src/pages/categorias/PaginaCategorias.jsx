@@ -12,6 +12,7 @@ import Loader from '../../components/common/Loader';
 
 const PaginaCategorias = () => {
   const categorias = useSelector(state => state.categoria.lista);
+  const categoriasCargadas = useSelector(state => state.categoria.cargada);
   const dispatch = useDispatch();
   const [modalAbierto, setModalAbierto] = useState(false);
   const [categoriaEditando, setCategoriaEditando] = useState(null);
@@ -94,11 +95,19 @@ const PaginaCategorias = () => {
     <div className="pagina-categorias">
       <h2>Categorías</h2>
       <Boton onClick={abrirNueva}>+ Agregar categoría</Boton>
-      {categorias.length === 0 && <p>No hay categorías cargadas</p>}
-      <ListaCategorias categorias={categorias} editar={abrirEdicion} eliminar={eliminar} />
-      {cargandoGrafico
-        ? <Loader texto="Cargando gráfico..." />
-        : juegos.length > 0 && <GraficoCategorias etiquetas={etiquetas} cantidades={cantidades} />}
+      {!categoriasCargadas ? <Loader texto="Cargando categorías..." /> : (
+        <>
+          {categorias.length === 0 && <p className="pagina-categorias__vacio">No hay categorías cargadas</p>}
+          <ListaCategorias categorias={categorias} editar={abrirEdicion} eliminar={eliminar} />
+        </>
+      )}
+      {cargandoGrafico && <Loader texto="Cargando gráfico..." />}
+      {!cargandoGrafico && juegos.length === 0 && (
+        <p className="pagina-categorias__vacio">Todavía no hay juegos para graficar</p>
+      )}
+      {!cargandoGrafico && juegos.length > 0 && (
+        <GraficoCategorias etiquetas={etiquetas} cantidades={cantidades} />
+      )}
       {modalAbierto && (
         <ModalCategoria categoria={categoriaEditando} guardar={guardar} cerrar={cerrarModal} />
       )}

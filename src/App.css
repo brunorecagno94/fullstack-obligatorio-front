@@ -158,6 +158,22 @@
   text-align: center;
 }
 
+.juego__precio {
+  margin: auto 0 0;
+  padding: 0 12px 8px;
+  color: var(--texto);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.juego__precio + .juego__acciones {
+  margin-top: 0;
+}
+
+.pagina-categorias__vacio {
+  color: var(--texto-suave);
+}
+
 .juego__comprado {
   flex: 1;
   padding: 8px;

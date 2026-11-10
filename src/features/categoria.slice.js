@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  lista: []
+  lista: [],
+  cargada: false
 };
 
 const categoriaSlice = createSlice({
@@ -10,6 +11,7 @@ const categoriaSlice = createSlice({
   reducers: {
     setCategorias: (state, action) => {
       state.lista = action.payload;
+      state.cargada = true;
     },
     agregarCategoria: (state, action) => {
       state.lista.push(action.payload);
